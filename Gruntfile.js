@@ -28,8 +28,8 @@ module.exports = function(grunt) {
         new: {
             one: {
                 newFiles: [
-                    "tmp/<%= name %>/main.js",
-                    "tmp/<%= name %>/examples/<%= name %>.html"
+                    "tmp/{{=name}}/main.js",
+                    "tmp/{{=name}}/examples/{{=name}}.html"
                 ]
             },
             custom_options: {
@@ -37,8 +37,8 @@ module.exports = function(grunt) {
                     name: "Widget"
                 },
                 newFiles: [
-                    "tmp/<%= name %>/main.js",
-                    "tmp/<%= name %>/examples/<%= name %>.html"
+                    "tmp/{{=name}}/main.js",
+                    "tmp/{{=name}}/examples/{{=name}}.html"
                 ]
             },
         },
