@@ -1,6 +1,6 @@
 /*
  * grunt-new
- * https://github.com/Lloyd/grunt-new
+ * https://github.com/75lb/grunt-new
  *
  * Copyright (c) 2013 Lloyd Brookes
  * Licensed under the MIT license.

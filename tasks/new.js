@@ -1,6 +1,6 @@
 /*
  * grunt-new
- * https://github.com/Lloyd/grunt-new
+ * https://github.com/75lb/grunt-new
  *
  * Copyright (c) 2013 Lloyd Brookes
  * Licensed under the MIT license.
@@ -9,12 +9,10 @@
 "use strict";
 
 module.exports = function(grunt) {
-    grunt.registerMultiTask("new", "Boilerplate new component file and directory structures", function(name) {
-        console.log(this.options());
+    grunt.registerMultiTask("new", "Boilerplate new file and directory structures", function(name) {
         var options = this.options({
             name: name || "default"
         });
-        console.log(options);
 
         grunt.template.addDelimiters("mustache", "{{", "}}");
         var templateOptions = {
