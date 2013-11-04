@@ -1,15 +1,15 @@
 {
-  "name": "grunt-new",
+  "name": "grunt-boil",
   "description": "Boilerplate new file and directory structures",
   "version": "0.1.1",
-  "homepage": "https://github.com/75lb/grunt-new",
+  "homepage": "https://github.com/75lb/grunt-boil",
   "author": {
     "name": "Lloyd Brookes",
     "email": "lloyd.brookes@gmail.com"
   },
-  "repository": "https://github.com/75lb/grunt-new",
+  "repository": "https://github.com/75lb/grunt-boil",
   "bugs": {
-    "url": "https://github.com/75lb/grunt-new/issues"
+    "url": "https://github.com/75lb/grunt-boil/issues"
   },
   "main": "Gruntfile.js",
   "engines": {
