@@ -1,7 +1,7 @@
 {
   "name": "grunt-new",
   "description": "Boilerplate new file and directory structures",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/75lb/grunt-new",
   "author": {
     "name": "Lloyd Brookes",
