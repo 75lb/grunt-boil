@@ -28,41 +28,40 @@ module.exports = function(grunt) {
         new: {
             one: {
                 newFiles: [
-                    "tmp/{{=name}}/main.js",
-                    "tmp/{{=name}}/examples/{{=name}}.html"
+                    "tmp/one/main.js",
+                    "tmp/one/examples/one.html"
                 ]
             },
-            custom_options: {
+            two: {
                 options: {
-                    name: "Widget"
+                    args: ["group", "Widget"]
                 },
                 newFiles: [
-                    "tmp/{{=name}}/main.js",
-                    "tmp/{{=name}}/examples/{{=name}}.html"
+                    "tmp/components/$1/$2/main.js",
+                    "tmp/components/$1/$2/examples/$2.html"
                 ]
             },
+            three: {
+                newFiles: [
+                    "tmp/components/$1/$2/main.js",
+                    "tmp/components/$1/$2/examples/$2.html"
+                ]
+            }
         },
 
         // Unit tests.
         nodeunit: {
-            tests: ["test/*_test.js"],
+            tests: ["test/*_test.js"]
         },
 
     });
 
-    // Actually load this plugin"s task(s).
     grunt.loadTasks("tasks");
-
-    // These plugins provide necessary tasks.
     grunt.loadNpmTasks("grunt-contrib-jshint");
     grunt.loadNpmTasks("grunt-contrib-clean");
     grunt.loadNpmTasks("grunt-contrib-nodeunit");
 
-    // Whenever the "test" task is run, first clean the "tmp" dir, then run this
-    // plugin"s task(s), then test the result.
     grunt.registerTask("test", ["clean", "new", "nodeunit"]);
-
-    // By default, lint and run all tests.
     grunt.registerTask("default", ["jshint", "test"]);
 
 };

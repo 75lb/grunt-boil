@@ -11,17 +11,16 @@
 module.exports = function(grunt) {
     grunt.registerMultiTask("new", "Boilerplate new file and directory structures", function(name) {
         var options = this.options({
-            name: name || "default"
+            args: Array.prototype.slice.call(arguments) || []
         });
-
-        grunt.template.addDelimiters("mustache", "{{", "}}");
-        var templateOptions = {
-            data: options,
-            delimiters: "mustache"
-        };
+        
+        console.log(options.args);
 
         this.data.newFiles.forEach(function(file){
-            file = grunt.template.process(file, templateOptions);
+            options.args.forEach(function(value, index){
+                var replaceToken = new RegExp("\\$" + (index + 1), "g");
+                file = file.replace(replaceToken, value);
+            });
             grunt.file.write(file, "");
             grunt.log.ok("created: " + file);
         });
