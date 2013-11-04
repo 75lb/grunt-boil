@@ -14,7 +14,7 @@ module.exports = function(grunt) {
             args: Array.prototype.slice.call(arguments) || []
         });
         
-        console.log(options.args);
+        grunt.verbose.writeln("args: " + options.args.toString());
 
         this.data.newFiles.forEach(function(file){
             options.args.forEach(function(value, index){
