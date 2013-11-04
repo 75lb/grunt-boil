@@ -17,14 +17,14 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 grunt.loadNpmTasks('grunt-boil');
 ```
 
-## The "new" task
+## The "boil" task
 
 ### Overview
 In your project's Gruntfile, add a section named `new` to the data object passed into `grunt.initConfig()`.
 
 ```js
 grunt.initConfig({
-    new: {
+    boil: {
         options: {
             // Task-specific options go here.
         },
@@ -50,7 +50,7 @@ In the simplest example, a new file structure is created with no string replacem
 
 ```js
 grunt.initConfig({
-  new: {
+  boil: {
     component: {
       newFiles: [
           "tmp/component/main.js",
@@ -77,7 +77,7 @@ Supply some arguments and they'll be inserted into each file created. Use the `$
 
 ```js
 grunt.initConfig({
-    new: {
+    boil: {
       component: {
         options: {
           args: [ "components", "Widget" ]
@@ -106,7 +106,7 @@ Alternatively, and often more conveniently, you can pass your args in from the c
 
 ```js
 grunt.initConfig({
-    new: {
+    boil: {
       component: {
         newFiles: [
             "tmp/$1/$2/main.js",
@@ -119,7 +119,7 @@ grunt.initConfig({
 
 this command: 
 ```sh
-$ grunt new:component:components:Widget
+$ grunt boil:component:components:Widget
 ```
 
 will produce the output: 
@@ -131,10 +131,5 @@ tmp/components/Widget/examples
 tmp/components/Widget/examples/Widget.html
 tmp/components/Widget/main.js
 ```
-
-
-## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
-
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/75lb/grunt-boil/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
