@@ -22,7 +22,7 @@ var grunt = require("grunt");
     test.ifError(value)
 */
 
-exports.new = {
+exports.boil = {
   one: function(test) {
     test.expect(2);
   

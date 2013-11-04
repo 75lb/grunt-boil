@@ -9,7 +9,7 @@
 "use strict";
 
 module.exports = function(grunt) {
-    grunt.registerMultiTask("new", "Boilerplate new file and directory structures", function(name) {
+    grunt.registerMultiTask("boil", "Boilerplate new file and directory structures", function(name) {
         var options = this.options({
             args: Array.prototype.slice.call(arguments) || []
         });

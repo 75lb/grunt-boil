@@ -25,7 +25,7 @@ module.exports = function(grunt) {
             tests: ["tmp"],
         },
 
-        new: {
+        boil: {
             one: {
                 newFiles: [
                     "tmp/one/main.js",
@@ -62,10 +62,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-nodeunit");
 
     grunt.registerTask("with_args", function(){
-        grunt.task.run("new:three:clive:hater");
+        grunt.task.run("boil:three:clive:hater");
     });
 
-    grunt.registerTask("test", ["clean", "new", "with_args", "nodeunit"]);
+    grunt.registerTask("test", ["clean", "boil", "with_args", "nodeunit"]);
     grunt.registerTask("default", ["jshint", "test"]);
 
 };
