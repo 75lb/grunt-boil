@@ -37,24 +37,24 @@ grunt.initConfig({
 
 ### Options
 
-#### options.name
-Type: `String`
-Default value: `default`
+#### options.args
+Type: `Array`
+Default value: []
 
-The string to replace `{{=name}}` 
+An array of string values to insert into each filename in newFiles.
 
 ### Usage Examples
 
-#### Default Options
-The follow example, the `{{=name}}` token is replaced by `default` (the default value for the `name` option).
+#### Simplest Example
+In the simplest example, a new file structure is created with no string replacement:
 
 ```js
 grunt.initConfig({
   new: {
-    one: {
+    component: {
       newFiles: [
-          "tmp/{{=name}}/main.js",
-          "tmp/{{=name}}/examples/{{=name}}.html"
+          "tmp/component/main.js",
+          "tmp/component/examples/component.html"
       ]
     },
   },
@@ -66,25 +66,25 @@ Output:
 ```sh
 $ find tmp
 tmp
-tmp/default
-tmp/default/examples
-tmp/default/examples/default.html
-tmp/default/main.js
+tmp/component
+tmp/component/examples
+tmp/component/examples/component.html
+tmp/component/main.js
 ```
 
-#### Custom Options
-Supply a custom `name` value in `options` to specify the value for `{{=name}}`:
+#### Pass in arguments
+Supply some arguments and they'll be inserted into each file created. Use the `$1`, `$2`, `$3` etc. in your new filename string where you'd like each value to be inserted.
 
 ```js
 grunt.initConfig({
     new: {
-      one: {
+      component: {
         options: {
-          name: "Widget"
+          args: [ "components", "Widget" ]
         },
         newFiles: [
-            "tmp/{{=name}}/main.js",
-            "tmp/{{=name}}/examples/{{=name}}.html"
+            "tmp/$1/$2/main.js",
+            "tmp/$1/$2/examples/$2.html"
         ]
       }
     }
@@ -94,22 +94,23 @@ grunt.initConfig({
 Output: 
 ```sh
 $ find tmp
-tmp/Widget
-tmp/Widget/examples
-tmp/Widget/examples/Widget.html
-tmp/Widget/main.js
+tmp/components
+tmp/components/Widget
+tmp/components/Widget/examples
+tmp/components/Widget/examples/Widget.html
+tmp/components/Widget/main.js
 ```
 
 #### Command-line Arg
-Or pass a custom `name` value as a task argument on the command line. With this config:
+Alternatively, and often more conveniently, you can pass your args in from the command line.. With a config like this, with no args specified:
 
 ```js
 grunt.initConfig({
     new: {
-      one: {
+      component: {
         newFiles: [
-            "tmp/{{=name}}/main.js",
-            "tmp/{{=name}}/examples/{{=name}}.html"
+            "tmp/$1/$2/main.js",
+            "tmp/$1/$2/examples/$2.html"
         ]
       }
     }
@@ -118,19 +119,22 @@ grunt.initConfig({
 
 this command: 
 ```sh
-$ grunt new:one:module
+$ grunt new:component:components:Widget
 ```
 
-produces this output: 
+will produce the output: 
 ```sh
 $ find tmp
-tmp/module
-tmp/module/examples
-tmp/module/examples/module.html
-tmp/module/main.js
+tmp/components
+tmp/components/Widget
+tmp/components/Widget/examples
+tmp/components/Widget/examples/Widget.html
+tmp/components/Widget/main.js
 ```
 
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/75lb/grunt-new/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
