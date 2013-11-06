@@ -9,6 +9,8 @@
 "use strict";
 
 module.exports = function(grunt) {
+    var _ = require("lodash");
+    
     grunt.registerMultiTask("boil", "Boilerplate new components", function(name) {
         
         function replaceArgs(file, replaceWith, index){
@@ -17,6 +19,12 @@ module.exports = function(grunt) {
                 return file.replace(replaceToken, replaceWith);
             } else {
                 file.name = file.name.replace(replaceToken, replaceWith);
+                
+                // if (_.isPlainObject(file.content)){
+                if (typeof file.content === "object"){
+                    file.content = JSON.stringify(file.content, null, "    ");
+                }
+                
                 if (typeof file.content === "string"){
                     file.content = file.content.replace(replaceToken, replaceWith);
                 }
@@ -28,7 +36,11 @@ module.exports = function(grunt) {
             if (typeof file === "string"){
                 grunt.file.write(file, "");
             } else {
-                grunt.file.write(file.name, file.content);
+                if (file.copy){
+                    grunt.file.copy(file.copy, file.name);
+                } else {
+                    grunt.file.write(file.name, file.content);
+                }
             }
             grunt.log.ok("created: " + (typeof file === "string" ? file : file.name));
         }

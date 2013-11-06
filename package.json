@@ -29,5 +29,8 @@
   },
   "keywords": [
     "gruntplugin"
-  ]
+  ],
+  "dependencies": {
+    "lodash": "~2.2.1"
+  }
 }

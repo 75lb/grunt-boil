@@ -24,18 +24,22 @@ var grunt = require("grunt");
 
 exports.boil = {
     package: function(test){
-        test.expect(6);
+        test.expect(7);
       
         var actual = grunt.file.read("tmp/widget/examples/widget.html"),
             expected = grunt.file.read("test/expected/widget/examples/widget.html");
         test.equal(actual, expected);
 
-        actual = grunt.file.read("tmp/widget/examples/logo.png");
-        expected = grunt.file.read("test/assets/logo.png");
-        test.equal(actual, expected);
-      
+        actual = grunt.file.read("tmp/widget/examples/logo.png", { encoding: null });
+        expected = grunt.file.read("test/assets/logo.png", { encoding: null });
+        test.deepEqual(actual, expected);
+       
         actual = grunt.file.read("tmp/widget/bower.json");
         expected = grunt.file.read("test/expected/widget/bower.json");
+        test.equal(actual, expected);
+
+        actual = grunt.file.read("tmp/widget/more.json");
+        expected = grunt.file.read("test/expected/widget/more.json");
         test.equal(actual, expected);
 
         actual = grunt.file.read("tmp/widget/nls/widget.js");
