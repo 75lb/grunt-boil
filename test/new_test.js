@@ -23,43 +23,33 @@ var grunt = require("grunt");
 */
 
 exports.boil = {
-  one: function(test) {
-    test.expect(2);
-  
-    var actual = grunt.file.read("tmp/one/main.js");
-    var expected = grunt.file.read("test/expected/one/main.js");
-    test.equal(actual, expected);
-  
-    actual = grunt.file.read("tmp/one/examples/one.html");
-    expected = grunt.file.read("test/expected/one/examples/one.html");
-    test.equal(actual, expected);
-  
-    test.done();
-  },
-  two: function(test) {
-    test.expect(2);
-  
-    var actual = grunt.file.read("tmp/components/group/Widget/main.js"),
-        expected = grunt.file.read("test/expected/components/group/Widget/main.js");
-    test.equal(actual, expected);
-  
-    actual = grunt.file.read("tmp/components/group/Widget/examples/Widget.html");
-    expected = grunt.file.read("test/expected/components/group/Widget/examples/Widget.html");
-    test.equal(actual, expected);
-  
-    test.done();
-  },
-  with_args: function(test){
-      test.expect(2);
-  
-      var actual = grunt.file.read("tmp/components/clive/hater/main.js"),
-          expected = grunt.file.read("test/expected/components/clive/hater/main.js");
-      test.equal(actual, expected);
+    package: function(test){
+        test.expect(6);
       
-      actual = grunt.file.read("tmp/components/clive/hater/examples/hater.html");
-      expected = grunt.file.read("test/expected/components/clive/hater/examples/hater.html");
-      test.equal(actual, expected);
+        var actual = grunt.file.read("tmp/widget/examples/widget.html"),
+            expected = grunt.file.read("test/expected/widget/examples/widget.html");
+        test.equal(actual, expected);
 
-      test.done();
-  }
+        actual = grunt.file.read("tmp/widget/examples/logo.png");
+        expected = grunt.file.read("test/assets/logo.png");
+        test.equal(actual, expected);
+      
+        actual = grunt.file.read("tmp/widget/bower.json");
+        expected = grunt.file.read("test/expected/widget/bower.json");
+        test.equal(actual, expected);
+
+        actual = grunt.file.read("tmp/widget/nls/widget.js");
+        expected = grunt.file.read("test/expected/widget/nls/widget.js");
+        test.equal(actual, expected);
+
+        actual = grunt.file.read("tmp/widget/main.js");
+        expected = grunt.file.read("test/expected/widget/main.js");
+        test.equal(actual, expected);
+
+        actual = grunt.file.read("tmp/widget/widget.scss");
+        expected = grunt.file.read("test/expected/widget/widget.scss");
+        test.equal(actual, expected);
+        
+        test.done();
+    }
 };

@@ -26,27 +26,43 @@ module.exports = function(grunt) {
         },
 
         boil: {
-            one: {
-                newFiles: [
-                    "tmp/one/main.js",
-                    "tmp/one/examples/one.html"
-                ]
-            },
-            two: {
+            package: {
                 options: {
-                    args: ["group", "Widget"]
+                    args: [ "widget"]
                 },
                 newFiles: [
-                    "tmp/components/$1/$2/main.js",
-                    "tmp/components/$1/$2/examples/$2.html"
-                ]
-            },
-            three: {
-                newFiles: [
-                    "tmp/components/$1/$2/main.js",
-                    "tmp/components/$1/$2/examples/$2.html"
+                    { 
+                        name: "tmp/$1/examples/$1.html",
+                        content: "<p>docs here</p>"
+                    },
+                    { 
+                        name: "tmp/$1/examples/logo.png",
+                        content: grunt.file.read("test/assets/logo.png", { encoding: null })
+                    },
+                    {
+                        name: "tmp/$1/bower.json",
+                        content: {
+                            "name": "$1",
+                            "version": "0.0.0",
+                            "private": true,
+                            "dependencies": {
+                                "dojo": "1.8.1",
+                                "dijit": "1.8.1"
+                            }
+                        }
+                    },
+                    { 
+                        name: "tmp/$1/nls/$1.js",
+                        content: grunt.file.read("test/assets/module1.js")
+                    },
+                    { 
+                        name: "tmp/$1/main.js",
+                        content: grunt.file.read("test/assets/module2.js")
+                    },
+                    "tmp/$1/$1.scss"
                 ]
             }
+            
         },
 
         // Unit tests.
@@ -62,7 +78,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-nodeunit");
 
     grunt.registerTask("with_args", function(){
-        grunt.task.run("boil:three:clive:hater");
+        grunt.task.run("boil:package:clive:hater");
     });
 
     grunt.registerTask("test", ["clean", "boil", "with_args", "nodeunit"]);

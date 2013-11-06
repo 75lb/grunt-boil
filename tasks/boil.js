@@ -9,7 +9,30 @@
 "use strict";
 
 module.exports = function(grunt) {
-    grunt.registerMultiTask("boil", "Boilerplate new file and directory structures", function(name) {
+    grunt.registerMultiTask("boil", "Boilerplate new components", function(name) {
+        
+        function replaceArgs(file, replaceWith, index){
+            var replaceToken = new RegExp("\\$" + (index + 1), "g");
+            if (typeof file === "string"){
+                return file.replace(replaceToken, replaceWith);
+            } else {
+                file.name = file.name.replace(replaceToken, replaceWith);
+                if (typeof file.content === "string"){
+                    file.content = file.content.replace(replaceToken, replaceWith);
+                }
+                return file;
+            }
+        }
+        
+        function createFile(file){
+            if (typeof file === "string"){
+                grunt.file.write(file, "");
+            } else {
+                grunt.file.write(file.name, file.content);
+            }
+            grunt.log.ok("created: " + (typeof file === "string" ? file : file.name));
+        }
+        
         var options = this.options({
             args: Array.prototype.slice.call(arguments) || []
         });
@@ -17,12 +40,10 @@ module.exports = function(grunt) {
         grunt.verbose.writeln("args: " + options.args.toString());
 
         this.data.newFiles.forEach(function(file){
-            options.args.forEach(function(value, index){
-                var replaceToken = new RegExp("\\$" + (index + 1), "g");
-                file = file.replace(replaceToken, value);
+            options.args.forEach(function(replaceWith, index){
+                file = replaceArgs(file, replaceWith, index);
             });
-            grunt.file.write(file, "");
-            grunt.log.ok("created: " + file);
+            createFile(file);
         });
     });
 };
