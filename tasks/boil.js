@@ -9,8 +9,6 @@
 "use strict";
 
 module.exports = function(grunt) {
-    var _ = require("lodash");
-    
     grunt.registerMultiTask("boil", "Boilerplate new components", function(name) {
         
         function replaceArgs(file, replaceWith, index){
@@ -20,7 +18,6 @@ module.exports = function(grunt) {
             } else {
                 file.name = file.name.replace(replaceToken, replaceWith);
                 
-                // if (_.isPlainObject(file.content)){
                 if (typeof file.content === "object"){
                     file.content = JSON.stringify(file.content, null, "    ");
                 }
