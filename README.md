@@ -1,6 +1,6 @@
 # grunt-boil
 
-> Boilerplate new component file and directory structures
+> Boilerplate arbitrary components, files and directory structures with templated content
 
 ## Getting Started
 This plugin requires Grunt `~0.4.1`
@@ -36,12 +36,6 @@ grunt.initConfig({
 ```
 
 ### Options
-
-#### options.args
-Type: `Array`
-Default value: {}
-
-The data object to pass into 
 
 ### Usage Examples
 
