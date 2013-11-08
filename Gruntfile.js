@@ -28,9 +28,11 @@ module.exports = function(grunt) {
         boil: {
             package: {
                 options: {
-                    args: [ "widget", "something"]
+                    data: {
+                        args: [ "widget", "something"]
+                    }
                 },
-                newFiles: [
+                create: [
                     { 
                         name: "tmp/$1/examples/$1.html",
                         content: "<p>docs here</p>"
@@ -71,7 +73,7 @@ module.exports = function(grunt) {
             },
             
             with_args: {
-                newFiles: [
+                create: [
                     { 
                         name: "tmp/$1/examples/$1.html",
                         content: "<p>docs here</p>"
@@ -102,9 +104,25 @@ module.exports = function(grunt) {
                     },
                     "tmp/$1/$1.scss"
                 ]
+            },
+            
+            index: {
+                options:{
+                    data: {
+                        someFiles: grunt.file.expand("test/assets/*"),
+                        clive: "hater"
+                    }
+                },
+                create: [
+                    { 
+                        name: "tmp/index.html",
+                        content: grunt.file.read("test/assets/index.html")
+                    }
+                ]
             }
             
         },
+        path: require("path"),
 
         // Unit tests.
         nodeunit: {
@@ -122,12 +140,7 @@ module.exports = function(grunt) {
         grunt.task.run("boil:with_args:clive");
     });
 
-    grunt.registerTask("copy", function(){
-        // grunt.file.write("copy.png", grunt.file.read("test/assets/logo.png", { encoding: null }));
-        grunt.file.copy("test/assets/logo.png", "clive.png");
-    });
-
-    grunt.registerTask("test", ["clean", "boil:package", "with_args", "nodeunit"]);
+    grunt.registerTask("test", ["clean", "boil:package", "with_args", "boil:index", "nodeunit"]);
     grunt.registerTask("default", ["jshint", "test"]);
 
 };

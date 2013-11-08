@@ -13,45 +13,52 @@ module.exports = function(grunt) {
         
         function replaceArgs(file, replaceWith, index){
             var replaceToken = new RegExp("\\$" + (index + 1), "g");
-            if (typeof file === "string"){
-                return file.replace(replaceToken, replaceWith);
-            } else {
-                file.name = file.name.replace(replaceToken, replaceWith);
-                
-                if (typeof file.content === "object"){
-                    file.content = JSON.stringify(file.content, null, "    ");
-                }
-                
-                if (typeof file.content === "string"){
-                    file.content = file.content.replace(replaceToken, replaceWith);
-                }
-                return file;
+            file.name = file.name.replace(replaceToken, replaceWith);
+            
+            if (typeof file.content === "object"){
+                file.content = JSON.stringify(file.content, null, "    ");
             }
+            
+            if (typeof file.content === "string"){
+                file.content = file.content.replace(replaceToken, replaceWith);
+            }
+            return file;
         }
         
         function createFile(file){
-            if (typeof file === "string"){
-                grunt.file.write(file, "");
+            if (file.copy){
+                grunt.file.copy(file.copy, file.name);
             } else {
-                if (file.copy){
-                    grunt.file.copy(file.copy, file.name);
-                } else {
-                    grunt.file.write(file.name, file.content);
-                }
+                grunt.file.write(file.name, file.content);
             }
             grunt.log.ok("created: " + (typeof file === "string" ? file : file.name));
         }
         
-        var options = this.options({
-            args: Array.prototype.slice.call(arguments) || []
-        });
+        var options = this.options({ data:{ } });
+        if (!options.data.args){
+            options.data.args = Array.prototype.slice.call(arguments) || [];
+        }
         
-        grunt.verbose.writeln("args: " + options.args.toString());
+        grunt.verbose.writeln("options: ", JSON.stringify(options, null, "    "));
 
-        this.data.newFiles.forEach(function(file){
-            options.args.forEach(function(replaceWith, index){
+        if (!Array.isArray(this.data.create)){
+            this.data.create = [ this.data.create ];
+        }
+        this.data.create.forEach(function(file){
+            if (typeof file === "string"){
+                file = { name: file, content: "" };
+            }
+
+            grunt.verbose.writeln("file: ", JSON.stringify(file, null, "    "));
+
+            options.data.args.forEach(function(replaceWith, index){
                 file = replaceArgs(file, replaceWith, index);
             });
+            
+            // if (file.content){
+            //     console.log(options.data);
+            //     file.content = grunt.template.process(file.content, { data: options.data });
+            // }
             createFile(file);
         });
     });
