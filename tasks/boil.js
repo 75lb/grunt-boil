@@ -35,10 +35,9 @@ module.exports = function(grunt) {
         }
         
         var options = this.options({ data:{ } });
-        if (!options.data.args){
-            options.data.args = Array.prototype.slice.call(arguments) || [];
+        if (!options.args){
+            options.args = Array.prototype.slice.call(arguments) || [];
         }
-        
         grunt.verbose.writeln("options: ", JSON.stringify(options, null, "    "));
 
         if (!Array.isArray(this.data.create)){
@@ -48,17 +47,10 @@ module.exports = function(grunt) {
             if (typeof file === "string"){
                 file = { name: file, content: "" };
             }
-
             grunt.verbose.writeln("file: ", JSON.stringify(file, null, "    "));
-
-            options.data.args.forEach(function(replaceWith, index){
+            options.args.forEach(function(replaceWith, index){
                 file = replaceArgs(file, replaceWith, index);
             });
-            
-            // if (file.content){
-            //     console.log(options.data);
-            //     file.content = grunt.template.process(file.content, { data: options.data });
-            // }
             createFile(file);
         });
     });

@@ -39,9 +39,9 @@ grunt.initConfig({
 
 #### options.args
 Type: `Array`
-Default value: []
+Default value: {}
 
-An array of string values to insert into each filename in newFiles.
+The data object to pass into 
 
 ### Usage Examples
 
@@ -52,7 +52,7 @@ In the simplest example, a new file structure is created with no string replacem
 grunt.initConfig({
   boil: {
     component: {
-      newFiles: [
+      create: [
           "tmp/component/main.js",
           "tmp/component/examples/component.html"
       ]
@@ -72,43 +72,14 @@ tmp/component/examples/component.html
 tmp/component/main.js
 ```
 
-#### Pass in arguments
-Supply some arguments and they'll be inserted into each file created. Use the `$1`, `$2`, `$3` etc. in your new filename string where you'd like each value to be inserted.
+#### Command-line Args
+You can pass values in from the command line to insert into your created file name or content. `$1` is the first arg value, `$2` the second etc.
 
 ```js
 grunt.initConfig({
     boil: {
       component: {
-        options: {
-          args: [ "components", "Widget" ]
-        },
-        newFiles: [
-            "tmp/$1/$2/main.js",
-            "tmp/$1/$2/examples/$2.html"
-        ]
-      }
-    }
-})
-```
-
-Output: 
-```sh
-$ find tmp
-tmp/components
-tmp/components/Widget
-tmp/components/Widget/examples
-tmp/components/Widget/examples/Widget.html
-tmp/components/Widget/main.js
-```
-
-#### Command-line Arg
-Alternatively, and often more conveniently, you can pass your args in from the command line.. With a config like this, with no args specified:
-
-```js
-grunt.initConfig({
-    boil: {
-      component: {
-        newFiles: [
+        create: [
             "tmp/$1/$2/main.js",
             "tmp/$1/$2/examples/$2.html"
         ]

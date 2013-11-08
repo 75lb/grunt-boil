@@ -28,9 +28,7 @@ module.exports = function(grunt) {
         boil: {
             package: {
                 options: {
-                    data: {
-                        args: [ "widget", "something"]
-                    }
+                    args: [ "widget", "something"]
                 },
                 create: [
                     { 
@@ -107,11 +105,8 @@ module.exports = function(grunt) {
             },
             
             index: {
-                options:{
-                    data: {
-                        someFiles: grunt.file.expand("test/assets/*"),
-                        clive: "hater"
-                    }
+                data: {
+                    someFiles: grunt.file.expand("test/assets/*"),
                 },
                 create: [
                     { 
@@ -136,11 +131,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-clean");
     grunt.loadNpmTasks("grunt-contrib-nodeunit");
 
-    grunt.registerTask("with_args", function(){
-        grunt.task.run("boil:with_args:clive");
-    });
-
-    grunt.registerTask("test", ["clean", "boil:package", "with_args", "boil:index", "nodeunit"]);
+    grunt.registerTask("test", ["clean", "boil:package", "boil:with_args:clive", "boil:index", "nodeunit"]);
     grunt.registerTask("default", ["jshint", "test"]);
 
 };
