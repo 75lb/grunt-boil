@@ -1,0 +1,119 @@
+{
+    "modules": [
+        { 
+            "name": "fixture",
+            "classes": [
+                {
+                    "name": "ClassA",
+                    "description": "The description for ClassA",
+                    "extends": "Object",
+                    "uses": [
+                        "clive.txt",
+                        "hater.txt"
+                    ],
+                    "constructor": {
+                        "params": [
+                            {
+                                "name": "arg1",
+                                "type": "String",
+                                "description": "arg1 description"
+                            },
+                            {
+                                "name": "arg2",
+                                "type": "Number",
+                                "description": "arg2 description"
+                            }
+                        ]
+                    },
+                    "properties": [
+                        {
+                            "name": "someProp",
+                            "type": "String",
+                            "default": "\"whatever\"",
+                            "example": [
+                               " this.someProp = \"val\";"
+                            ]
+                        }
+                    ],
+                    "methods": [
+                        {
+                            "name": "methodA",
+                            "params": [
+                               {
+                                  "name": "str",
+                                  "description": "A string",
+                                  "type": "String"
+                               },
+                               {
+                                  "name": "num",
+                                  "description": "A number",
+                                  "type": "Number"
+                               }
+                            ],
+                            "return": {
+                               "description": "return val",
+                               "type": "Number"
+                            },
+                            "chainable": true
+                        }
+                    ]
+                },
+                {
+                    "name": "ClassB",
+                    "description": "The description for ClassB",
+                    "extends": "Object",
+                    "uses": [
+                        "clive.txt",
+                        "hater.txt"
+                    ],
+                    "constructor": {
+                        "params": [
+                            {
+                                "name": "arg1",
+                                "type": "String",
+                                "description": "arg1 description"
+                            },
+                            {
+                                "name": "arg2",
+                                "type": "Number",
+                                "description": "arg2 description"
+                            }
+                        ]
+                    },
+                    "properties": [
+                        {
+                            "name": "someProp",
+                            "type": "String",
+                            "default": "\"whatever\"",
+                            "example": [
+                               " this.someProp = \"val\";"
+                            ]
+                        }
+                    ],
+                    "methods": [
+                        {
+                            "name": "methodA",
+                            "params": [
+                               {
+                                  "name": "str",
+                                  "description": "A string",
+                                  "type": "String"
+                               },
+                               {
+                                  "name": "num",
+                                  "description": "A number",
+                                  "type": "Number"
+                               }
+                            ],
+                            "return": {
+                               "description": "return val",
+                               "type": "Number"
+                            },
+                            "chainable": true
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

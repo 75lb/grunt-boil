@@ -114,8 +114,15 @@ module.exports = function(grunt) {
                         content: grunt.file.read("test/assets/index.html")
                     }
                 ]
-            }
+            },
             
+            api: {
+                data: grunt.file.readJSON("test/assets/api.json"),
+                create: {
+                    name: "tmp/api.html",
+                    content: grunt.file.read("test/assets/api.html")
+                }
+            }
         },
         path: require("path"),
 
