@@ -1,7 +1,7 @@
 {
   "name": "grunt-boil",
   "description": "Boilerplate new packages, pages, modules, whatever..",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "homepage": "https://github.com/75lb/grunt-boil",
   "author": {
     "name": "Lloyd Brookes",
