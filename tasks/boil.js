@@ -24,11 +24,21 @@ module.exports = function(grunt) {
         options.helpers.forEach(function(helper){
             require(path.resolve(process.cwd(), helper))(handlebars);
         });
+        if (!this.data.create){
+            var exampleConfig = {
+                boil: {
+                    something: {
+                        create: [ "file1.hmtl", "file2.js", "etc" ]
+                    }
+                }
+            };
+            grunt.fail.fatal("You must specify at least one file to create in the config, e.g.: \n\n" + JSON.stringify(exampleConfig, null, "    "));
+        }
         
         function normaliseFile(file){
             if (typeof file === "string"){
                 file = { name: file, content: "" };
-            } else if (typeof file.content === "object"){
+            } else if (file && typeof file.content === "object"){
                 file.content = JSON.stringify(file.content, null, "    ");
             }
             return file;
