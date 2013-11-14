@@ -1,6 +1,6 @@
 {
   "name": "grunt-boil",
-  "description": "Boilerplate arbitrary components, files and directory structures with templated content",
+  "description": "Boilerplate new packages, pages, modules, etc.",
   "version": "0.3.0",
   "homepage": "https://github.com/75lb/grunt-boil",
   "author": {
@@ -29,5 +29,8 @@
   },
   "keywords": [
     "gruntplugin"
-  ]
+  ],
+  "dependencies": {
+    "handlebars": "~1.1.2"
+  }
 }

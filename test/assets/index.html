@@ -1,7 +1,7 @@
 <html>
 <body>
   <ul>
-    <% boil.index.data.someFiles.forEach(function(file){ %><li><a href="<%= file %>"><%= path.basename(file) %></a></li>
+    <% boil.index.options.someFiles.forEach(function(file){ %><li><a href="<%= file %>"><%= file %></a></li>
     <% }) %>
   </ul>
 </body>
