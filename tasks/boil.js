@@ -12,7 +12,7 @@ module.exports = function(grunt) {
     grunt.registerMultiTask("boil", "Boilerplate new components", function(name) {
         var handlebars = require("handlebars"),
             path = require("path"),
-            options = this.options({ grunt: grunt });
+            options = this.options({ grunt: grunt, helpers: [] });
 
         if (!options.args){
             options.args = Array.prototype.slice.call(arguments) || [];
