@@ -1,6 +1,8 @@
+[![NPM version](https://badge.fury.io/js/grunt-boil.png)](http://badge.fury.io/js/grunt-boil)
+
 # grunt-boil
 
-> Boilerplate arbitrary components, files and directory structures with templated content
+> Boilerplate a new package, page, stylesheet, module, whatever..
 
 ## Getting Started
 This plugin requires Grunt `~0.4.1`
@@ -98,3 +100,4 @@ tmp/components/Widget/main.js
 ```
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/75lb/grunt-boil/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+[![NPM](https://nodei.co/npm-dl/grunt-boil.png?months=1)](https://nodei.co/npm/grunt-boil/)

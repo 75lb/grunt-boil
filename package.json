@@ -1,6 +1,6 @@
 {
   "name": "grunt-boil",
-  "description": "Boilerplate a new package, page, module, whatever..",
+  "description": "Boilerplate a new package, page, stylesheet, module, whatever..",
   "version": "0.4.0",
   "homepage": "https://github.com/75lb/grunt-boil",
   "author": {
