@@ -1,19 +1,19 @@
 /**
 <Description Here>
 
-@class $1
+@class {{args.[0]}}
 @extends _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin
 @uses hdx/extensions/array
-@uses "./templates/$1.html",
-@uses "./nls/$1"
+@uses "./templates/{{args.[0]}}.html",
+@uses "./nls/{{args.[0]}}"
 */
 define([
     "dojo/_base/declare",
     "dijit/_WidgetBase",
     "dijit/_TemplatedMixin",
     "dijit/_WidgetsInTemplateMixin",
-    "dojo/text!./templates/$1.html",
-    "dojo/i18n!./nls/$1"
+    "dojo/text!./templates/{{args.[0]}}.html",
+    "dojo/i18n!./nls/{{args.[0]}}"
 ], function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, template, i18n){
     return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin ], {
         

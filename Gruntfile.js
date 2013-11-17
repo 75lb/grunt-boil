@@ -28,62 +28,64 @@ module.exports = function(grunt) {
         boil: {
             package: {
                 options: {
-                    args: [ "widget", "something"]
+                    templateData: {
+                        args: [ "widget", "something"]
+                    }
                 },
                 create: [
                     { 
-                        name: "tmp/$1/examples/$1.html",
+                        name: "tmp/{{args.[0]}}/examples/{{args.[0]}}.html",
                         content: "<p>docs here</p>"
                     },
                     { 
-                        name: "tmp/$1/examples/logo.png",
+                        name: "tmp/{{args.[0]}}/examples/logo.png",
                         copy: "test/assets/logo.png"
                     },
                     {
-                        name: "tmp/$1/bower.json",
+                        name: "tmp/{{args.[0]}}/bower.json",
                         content: {
-                            "name": "$1",
+                            "name": "{{args.[0]}}",
                             "version": "0.0.0",
                             "private": true,
                             "dependencies": {
-                                "dojo": "1.8.1",
-                                "dijit": "1.8.1"
+                                "some": "1.8.1",
+                                "shite": "1.8.1"
                             }
                         }
                     },
                     {
-                        name: "tmp/$1/more.json",
+                        name: "tmp/{{args.[0]}}/more.json",
                         content: [
-                            { a: "$1" },
-                            { b: "$2" }
+                            { a: "{{args.[0]}}" },
+                            { b: "{{args.[1]}}" }
                         ]
                     },
                     { 
-                        name: "tmp/$1/nls/$1.js",
+                        name: "tmp/{{args.[0]}}/nls/{{args.[0]}}.js",
                         content: grunt.file.read("test/assets/module1.js")
                     },
                     { 
-                        name: "tmp/$1/main.js",
+                        name: "tmp/{{args.[0]}}/main.js",
                         content: grunt.file.read("test/assets/module2.js")
                     },
-                    "tmp/$1/$1.scss"
+                    "tmp/{{args.[0]}}/{{args.[0]}}.scss"
                 ]
             },
             
             with_args: {
                 create: [
                     { 
-                        name: "tmp/$1/examples/$1.html",
+                        name: "tmp/{{args.[0]}}/examples/{{args.[0]}}.html",
                         content: "<p>docs here</p>"
                     },
                     { 
-                        name: "tmp/$1/examples/logo.png",
+                        name: "tmp/{{args.[0]}}/examples/logo.png",
                         copy: "test/assets/logo.png"
                     },
                     {
-                        name: "tmp/$1/bower.json",
+                        name: "tmp/{{args.[0]}}/bower.json",
                         content: {
-                            "name": "$1",
+                            "name": "{{args.[0]}}",
                             "version": "0.0.0",
                             "private": true,
                             "dependencies": {
@@ -93,20 +95,22 @@ module.exports = function(grunt) {
                         }
                     },
                     { 
-                        name: "tmp/$1/nls/$1.js",
+                        name: "tmp/{{args.[0]}}/nls/{{args.[0]}}.js",
                         content: grunt.file.read("test/assets/module1.js")
                     },
                     { 
-                        name: "tmp/$1/main.js",
+                        name: "tmp/{{args.[0]}}/main.js",
                         content: grunt.file.read("test/assets/module2.js")
                     },
-                    "tmp/$1/$1.scss"
+                    "tmp/{{args.[0]}}/{{args.[0]}}.scss"
                 ]
             },
             
             index: {
                 options: {
-                    someFiles: grunt.file.expand("test/assets/*"),
+                    templateData: {
+                        someFiles: grunt.file.expand("*.{js,html}")
+                    },
                     helpers: "test/assets/helper.js"
                 },
                 create: [
@@ -115,14 +119,6 @@ module.exports = function(grunt) {
                         content: grunt.file.read("test/assets/index.html")
                     }
                 ]
-            },
-            
-            api: {
-                data: grunt.file.readJSON("test/assets/api.json"),
-                create: {
-                    name: "tmp/api.html",
-                    content: grunt.file.read("test/assets/api.html")
-                }
             },
             
             dynamicCreate: {
@@ -159,7 +155,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-clean");
     grunt.loadNpmTasks("grunt-contrib-nodeunit");
 
-    grunt.registerTask("test", ["clean", "boil:package", "boil:with_args:clive", "nodeunit"]);
+    grunt.registerTask("test", ["clean", "boil:package", "boil:with_args:clive", "boil:index", "nodeunit"]);
     grunt.registerTask("default", ["jshint", "test"]);
 
 };

@@ -1,8 +1,9 @@
 <html>
 <body>
   <ul>
-    <% boil.index.options.someFiles.forEach(function(file){ %><li><a href="<%= file %>"><%= file %></a></li>
-    <% }) %>
+  {{#list someFiles}}
+    <li><a href="{{this}}">{{this}}</a></li>
+  {{/list}}
   </ul>
 </body>
 </html>

@@ -1,30 +1,60 @@
-/*
- * grunt-boil
- * https://github.com/75lb/grunt-boil
- *
- * Copyright (c) 2013 Lloyd Brookes
- * Licensed under the MIT license.
- */
-
 "use strict";
-
 module.exports = function(grunt) {
-    grunt.registerMultiTask("boil", "Boilerplate new components", function(name) {
-        var handlebars = require("handlebars"),
-            path = require("path"),
-            options = this.options({ grunt: grunt, helpers: [] });
 
-        if (!options.args){
-            options.args = Array.prototype.slice.call(arguments) || [];
+    var handlebars = require("handlebars"),
+        path = require("path");
+
+    function arrayify(input){
+        return Array.isArray(input) ? input : [ input ];
+    }
+    
+    function File(file){
+        this.name = typeof file === "string" ? file : file.name || "";
+        this.copy = file.copy;
+        this.content = typeof file.content === "object" 
+            ? JSON.stringify(file.content, null, "    ")
+            : file.content;
+    }
+    File.prototype.create = function create(){
+        if (this.copy){
+            grunt.file.copy(this.copy, this.name);
+        } else {
+            grunt.file.write(this.name, this.content);
         }
+        grunt.log.ok("created: " + this.name);
+    };
+
+    function resolveTemplate(template, data){
+        var compiled = handlebars.compile(template);
+        return compiled(data);
+    }
+    
+    grunt.registerMultiTask("boil", "Boilerplate a new package, page, module, whatever..", function() {
+        var options = this.options({ 
+                helpers: [],
+                templateData: {}
+            }),
+            helpers = options.helpers,
+            templateData = options.templateData;
         
-        if (typeof options.helpers === "string"){
-            options.helpers = [ options.helpers ];
-        }
-        options.helpers.forEach(function(helper){
+        templateData.grunt = grunt;
+        templateData.args = this.args.length > 0 ? this.args : templateData.args;
+
+        arrayify(helpers).forEach(function(helper){
             require(path.resolve(process.cwd(), helper))(handlebars);
         });
-        if (!this.data.create){
+        
+        if (this.data.create){
+            arrayify(this.data.create).forEach(function(file){
+                file = new File(file);
+                grunt.verbose.writeln("file: ", JSON.stringify(file, null, "    "));
+                file.name = resolveTemplate(file.name, templateData);
+                if (file.content){
+                    file.content = resolveTemplate(file.content, templateData);
+                }
+                file.create();
+            });
+        } else {
             var exampleConfig = {
                 boil: {
                     something: {
@@ -32,46 +62,7 @@ module.exports = function(grunt) {
                     }
                 }
             };
-            grunt.fail.fatal("You must specify at least one file to create in the config, e.g.: \n\n" + JSON.stringify(exampleConfig, null, "    "));
+            grunt.fail.fatal("You must specify at least one file to create, e.g.: \n\n" + JSON.stringify(exampleConfig, null, "    "));
         }
-        
-        function normaliseFile(file){
-            if (typeof file === "string"){
-                file = { name: file, content: "" };
-            } else if (file && typeof file.content === "object"){
-                file.content = JSON.stringify(file.content, null, "    ");
-            }
-            return file;
-        }
-        
-        function replaceArgs(input, replaceWith, index){
-            var replaceToken = new RegExp("\\$" + (index + 1), "g");
-            return input.replace(replaceToken, replaceWith);
-        }
-        
-        function createFile(file){
-            if (file.copy){
-                grunt.file.copy(file.copy, file.name);
-            } else {
-                var template = handlebars.compile(file.content);
-                grunt.file.write(file.name, template(options));
-            }
-            grunt.log.ok("created: " + (typeof file === "string" ? file : file.name));
-        }
-        
-        if (!Array.isArray(this.data.create)){
-            this.data.create = [ this.data.create ];
-        }
-        this.data.create.forEach(function(file){
-            file = normaliseFile(file);
-            grunt.verbose.writeln("file: ", JSON.stringify(file, null, "    "));
-            options.args.forEach(function(replaceWith, index){
-                file.name = replaceArgs(file.name, replaceWith, index);
-                if (file.content) {
-                    file.content = replaceArgs(file.content, replaceWith, index);
-                }
-            });
-            createFile(file);
-        });
     });
 };
