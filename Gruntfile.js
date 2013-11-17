@@ -119,27 +119,6 @@ module.exports = function(grunt) {
                         content: grunt.file.read("test/assets/index.html")
                     }
                 ]
-            },
-            
-            dynamicCreate: {
-                create: grunt.file.expand("test/assets/*").map(function(file){
-                    var path = require("path");
-                    return {
-                        name: path.join("tmp", "dynamic", path.basename(file) + ".html"),
-                        content: "PUNK"
-                    };
-                })
-            },
-            
-            handlebars: {
-                options: {
-                    fileList: grunt.file.expand("*.{js,html}"),
-                    helpers: "test/assets/helper.js"
-                },
-                create: {
-                    name: "tmp/handlebars.html",
-                    content: grunt.file.read("test/assets/handlebars.hbs")
-                }
             }
         },
         
@@ -157,5 +136,4 @@ module.exports = function(grunt) {
 
     grunt.registerTask("test", ["clean", "boil:package", "boil:with_args:clive", "boil:index", "nodeunit"]);
     grunt.registerTask("default", ["jshint", "test"]);
-
 };
