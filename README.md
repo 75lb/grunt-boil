@@ -28,7 +28,7 @@ Boilerplate a new "reddit" plug-in in the "news" package
 
     $ grunt boil:plugin:news:reddit
 
-Create a new package folder structure called "global-styles"
+Create a new package structure called "global-styles"
 
     $ grunt boil:package:global-styles
     
