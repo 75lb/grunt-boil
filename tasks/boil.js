@@ -40,7 +40,7 @@ module.exports = function(grunt) {
         templateData.grunt = grunt;
         templateData.args = this.args.length > 0 ? this.args : templateData.args;
 
-        arrayify(helpers).forEach(function(helper){
+        grunt.file.expand(helpers).forEach(function(helper){
             require(path.resolve(process.cwd(), helper))(handlebars);
         });
         

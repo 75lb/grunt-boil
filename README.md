@@ -3,7 +3,7 @@
 
 # grunt-boil
 
-> Boilerplate a new package, page, stylesheet, module, whatever..
+> Boilerplate a new package, page, stylesheet, module, app, whatever..
 
 ## Getting Started
 This plugin requires Grunt `~0.4.1`
@@ -22,23 +22,62 @@ grunt.loadNpmTasks('grunt-boil');
 
 ## The "boil" task
 
+Use Boil to boilerplate new files (including content) and folder structures in your project. The type of commands you end up running look like: 
+
+Create a new plug-in module called "reddit" in the "news" package
+
+    $ grunt boil:plugin:news:reddit
+
+Create a new package called global-styles
+
+    $ grunt boil:package:global-styles
+    
+Generate an index page 
+
+    $ grunt boil:index
+
 ### Overview
-In your project's Gruntfile, add a section named `new` to the data object passed into `grunt.initConfig()`.
+In your project's Gruntfile, add a section named `boil` to the data object passed into `grunt.initConfig()`.
 
 ```js
 grunt.initConfig({
     boil: {
         options: {
-            // Task-specific options go here.
+            // Handblebars helpers to load
+            helpers: "helpers/*.js",
+            // Data available to each template in the `create` list
+            templateData: { user: "Lloyd", task: "grunt-boil" }
         },
         your_target: {
             // Target-specific file lists and/or options go here.
+            create: {
+                name: "file-to-be-created.html",
+                content: "<p>{{user}} is running {{task}}!</p>"
+            }
         }
     }
 })
 ```
 
 ### Options
+
+#### helpers
+Type: `String` | `Array`
+Default: null
+
+A [globbing pattern](http://gruntjs.com/api/grunt.file#globbing-patterns), or array of patterns specifying the filenames of [handlebars](http://handlebarsjs.com) [helpers](http://handlebarsjs.com/block_helpers.html) to be registered. Here is the boilerplate helper module: 
+
+    module.exports = function(handlebars){
+        handlebars.registerHelper("myHelper", function(context, options){
+            // your helper code here
+        });
+    };
+    
+#### templateData
+Type: Object
+Default: {}
+
+The data available to your templates
 
 ### Usage Examples
 
@@ -70,15 +109,15 @@ tmp/component/main.js
 ```
 
 #### Command-line Args
-You can pass values in from the command line to insert into your created file name or content. `$1` is the first arg value, `$2` the second etc.
+You can pass values in from the command line to insert into your created file name or content. `{{args.[0]}}` is the first arg value, `{{args.[1]}}` the second etc.
 
 ```js
 grunt.initConfig({
     boil: {
       component: {
         create: [
-            "tmp/$1/$2/main.js",
-            "tmp/$1/$2/examples/$2.html"
+            "tmp/{{args.[0]}}/{{args.[1]}}/main.js",
+            "tmp/{{args.[0]}}/{{args.[1]}}/examples/{{args.[1]}}.html"
         ]
       }
     }
