@@ -22,13 +22,13 @@ grunt.loadNpmTasks('grunt-boil');
 
 ## The "boil" task
 
-Use Boil to boilerplate new files (including content) and folder structures in your project. The type of commands you end up running look like: 
+Use Boil to boilerplate new files (including content) and folder structures in your project. Common tasks you might run include: 
 
-Create a new plug-in module called "reddit" in the "news" package
+Boilerplate a new "reddit" plug-in in the "news" package
 
     $ grunt boil:plugin:news:reddit
 
-Create a new package called global-styles
+Create a new package folder structure called "global-styles"
 
     $ grunt boil:package:global-styles
     
@@ -49,7 +49,7 @@ grunt.initConfig({
             templateData: { user: "Lloyd", task: "grunt-boil" }
         },
         your_target: {
-            // Target-specific file lists and/or options go here.
+            // The file or files to create
             create: {
                 name: "file-to-be-created.html",
                 content: "<p>{{user}} is running {{task}}!</p>"
@@ -62,19 +62,21 @@ grunt.initConfig({
 ### Options
 
 #### helpers
-Type: `String` | `Array`
+Type: `String` | `Array`  
 Default: null
 
-A [globbing pattern](http://gruntjs.com/api/grunt.file#globbing-patterns), or array of patterns specifying the filenames of [handlebars](http://handlebarsjs.com) [helpers](http://handlebarsjs.com/block_helpers.html) to be registered. Here is the boilerplate helper module: 
+A [globbing pattern](http://gruntjs.com/api/grunt.file#globbing-patterns), or array of patterns specifying the filenames of [handlebars](http://handlebarsjs.com) [helpers](http://handlebarsjs.com/block_helpers.html) to be registered. Each helper module should look something like this: 
 
-    module.exports = function(handlebars){
-        handlebars.registerHelper("myHelper", function(context, options){
-            // your helper code here
-        });
-    };
+```js
+module.exports = function(handlebars){
+    handlebars.registerHelper("myHelper", function(context, options){
+        // your helper code here
+    });
+};
+```
     
 #### templateData
-Type: Object
+Type: Object  
 Default: {}
 
 The data available to your templates
