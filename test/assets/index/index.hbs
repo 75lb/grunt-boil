@@ -1,9 +1,11 @@
 <html>
 <body>
+  {{> fileCount}}
   <ul>
   {{~#list someFiles}}
     <li><a href="{{this}}">{{this}}</a></li>
   {{~/list}}
   </ul>
+  {{> fileCount}}
 </body>
 </html>

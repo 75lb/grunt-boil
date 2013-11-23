@@ -111,7 +111,8 @@ module.exports = function(grunt) {
                     templateData: {
                         someFiles: grunt.file.expand("*.{js,html}")
                     },
-                    helpers: "test/assets/index/list.js"
+                    helpers: "test/assets/index/list.js",
+                    partials: "test/assets/index/fileCount.hbs"
                 },
                 create: [
                     { 

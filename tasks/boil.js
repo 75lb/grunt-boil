@@ -32,9 +32,11 @@ module.exports = function(grunt) {
     grunt.registerMultiTask("boil", "Boilerplate a new package, page, module, whatever..", function() {
         var options = this.options({ 
                 helpers: [],
+                partials: [],
                 templateData: {}
             }),
             helpers = options.helpers,
+            partials = options.partials,
             templateData = options.templateData;
         
         templateData.grunt = grunt;
@@ -42,6 +44,9 @@ module.exports = function(grunt) {
 
         grunt.file.expand(helpers).forEach(function(helper){
             require(path.resolve(process.cwd(), helper))(handlebars);
+        });
+        grunt.file.expand(partials).forEach(function(partial){
+            handlebars.registerPartial(path.basename(partial, ".hbs"), grunt.file.read(partial));
         });
         
         if (this.data.create){
