@@ -81,6 +81,8 @@ Default: {}
 
 The data available to your templates
 
+Special properties: grunt and args.
+
 ### Usage Examples
 
 #### Simplest Example

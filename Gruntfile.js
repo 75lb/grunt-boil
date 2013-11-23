@@ -111,12 +111,12 @@ module.exports = function(grunt) {
                     templateData: {
                         someFiles: grunt.file.expand("*.{js,html}")
                     },
-                    helpers: "test/assets/helper.js"
+                    helpers: "test/assets/index/list.js"
                 },
                 create: [
                     { 
                         name: "tmp/index.html",
-                        content: grunt.file.read("test/assets/index.html")
+                        content: grunt.file.read("test/assets/index/index.hbs")
                     }
                 ]
             }
