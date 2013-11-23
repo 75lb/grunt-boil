@@ -63,7 +63,7 @@ grunt.initConfig({
 
 #### helpers
 Type: `String` | `Array`  
-Default: null
+Default: []
 
 A [globbing pattern](http://gruntjs.com/api/grunt.file#globbing-patterns), or array of patterns specifying the filenames of [handlebars](http://handlebarsjs.com) [helpers](http://handlebarsjs.com/block_helpers.html) to be registered. Each helper module should look something like this: 
 
@@ -74,42 +74,185 @@ module.exports = function(handlebars){
     });
 };
 ```
+
+#### partials
+Type: `String` | `Array`  
+Default: []
+
+A [globbing pattern](http://gruntjs.com/api/grunt.file#globbing-patterns), or array of patterns specifying the filenames of [handlebars](http://handlebarsjs.com) [partials](http://handlebarsjs.com/block_helpers.html) to be registered. Each partial should be a file containing markup looking something like this: 
+
+```html
+<a href="{{url}}">{{text}}</a>
+```
+
+The filename of the partial (minus the `.hbs` extension) becomes the registered name. So, the partial with a filename of `fileStats.hbs` is inserted like so: 
+
+```html
+<section>
+    <p>See below for the file statistics</p>
+    {{> fileStats}}
+</section>
+```
     
 #### templateData
 Type: Object  
 Default: {}
 
-The data available to your templates
+The data available to all templates.
 
-Special properties: grunt and args.
+Two properties are added to `templateData` automatically - `grunt` (giving access to grunt config, functionality etc) and `args`, containing the arguments passed to the task.
 
-### Usage Examples
+You can set an `args` array in `templateData` to be used as default values in the case no command-line args are passed: 
 
-#### Simplest Example
-In the simplest example, a new file structure is created with no string replacement:
+    templateData: {
+        args: [ "packsges "]
+    }
+
+### Examples
+A set of progressively more complex examples.
+
+#### Boil a single, empty file
+This config:
 
 ```js
 grunt.initConfig({
   boil: {
-    component: {
-      create: [
-          "tmp/component/main.js",
-          "tmp/component/examples/component.html"
-      ]
-    },
-  },
+    empty: {  
+        create: "empty.txt"
+    }
+  }
 })
 ```
 
-Output: 
+with this command: 
 
 ```sh
-$ find tmp
-tmp
-tmp/component
-tmp/component/examples
-tmp/component/examples/component.html
-tmp/component/main.js
+$ grunt boil:empty
+```
+
+Produces this file: 
+
+```sh
+empty.txt
+```
+
+#### Boil a single file with content
+This config:
+
+```js
+grunt.initConfig({
+  boil: {
+    meanings: {  
+        create: {
+            name: "meanings.txt",
+            content: "words, adjectives and pronouns"
+        }
+    }
+  }
+})
+```
+
+with this command: 
+
+```sh
+$ grunt boil:meanings
+```
+
+Produces this file:
+
+    meanings.txt
+
+With this content: 
+
+    words, adjectives and pronouns
+
+#### Boil a file with content copied from another file
+This config:
+
+```js
+grunt.initConfig({
+  boil: {
+    logo: {  
+        create: {
+            name: "logo.png",
+            copy: "assets/logo-main.png"
+        }
+    }
+  }
+})
+```
+
+with this command: 
+
+```sh
+$ grunt boil:logo
+```
+
+Produces this file:
+
+    meanings.txt
+
+With this content: 
+
+    words, adjectives and pronouns
+
+#### Boil an HTML doc
+This config:
+
+    ```js
+    grunt.initConfig({
+      boil: {
+        meanings: {  
+            create: {
+                name: "meanings.txt",
+                content: "words, adjectives and pronouns"
+            }
+        }
+      }
+    })
+    ```
+
+    with this command: 
+
+    ```sh
+    $ grunt boil:meanings
+    ```
+
+    Produces this file:
+
+        meanings.txt
+
+    With this content: 
+
+        words, adjectives and pronouns
+
+#### Create several empty files in sub-folders
+This config:
+
+```js
+grunt.initConfig({
+  boil: {
+    empty: {  
+        create: [
+            "tmp/style/main.css",
+            "tmp/style/main.css"
+        ]
+    }
+  }
+})
+```
+
+with this command: 
+
+```sh
+$ grunt boil:empty
+```
+
+Produces this output: 
+
+```sh
+$ find tmp/*
+tmp/empty.txt
 ```
 
 #### Command-line Args
