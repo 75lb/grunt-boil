@@ -8,12 +8,24 @@ module.exports = function(grunt) {
         return Array.isArray(input) ? input : [ input ];
     }
     
-    function File(file){
-        this.name = typeof file === "string" ? file : file.name || "";
+    function resolveTemplate(template, data){
+        var compiled = handlebars.compile(template);
+        return compiled(data);
+    }
+    
+    function File(file, templateData){
+        this.name = typeof file === "string" 
+            ? file 
+            : file.name || "";
+        this.name = resolveTemplate(this.name, templateData);
         this.copy = file.copy;
         this.content = typeof file.content === "object" 
             ? JSON.stringify(file.content, null, "    ")
             : file.content;
+        if (this.content){
+            this.content = resolveTemplate(this.content, templateData);
+        }
+        
     }
     File.prototype.create = function create(){
         if (this.copy){
@@ -24,11 +36,6 @@ module.exports = function(grunt) {
         grunt.log.ok("created: " + this.name);
     };
 
-    function resolveTemplate(template, data){
-        var compiled = handlebars.compile(template);
-        return compiled(data);
-    }
-    
     grunt.registerMultiTask("boil", "Boilerplate a new package, page, module, whatever..", function() {
         var options = this.options({ 
                 helpers: [],
@@ -51,12 +58,7 @@ module.exports = function(grunt) {
         
         if (this.data.create){
             arrayify(this.data.create).forEach(function(file){
-                file = new File(file);
-                grunt.verbose.writeln("file: ", JSON.stringify(file, null, "    "));
-                file.name = resolveTemplate(file.name, templateData);
-                if (file.content){
-                    file.content = resolveTemplate(file.content, templateData);
-                }
+                file = new File(file, templateData);
                 file.create();
             });
         } else {

@@ -26,6 +26,12 @@ module.exports = function(grunt) {
         },
 
         boil: {
+            options: {
+                templateData: {
+                    clive: "hater",
+                    args: [ "nigeria" ]
+                }
+            },
             package: {
                 options: {
                     templateData: {
@@ -120,6 +126,10 @@ module.exports = function(grunt) {
                         content: grunt.file.read("test/assets/index/index.hbs")
                     }
                 ]
+            },
+            
+            taskOptions: {
+                create: "tmp/{{clive}}-{{args.[0]}}.txt"
             }
         },
         
