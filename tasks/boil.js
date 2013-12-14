@@ -30,7 +30,7 @@ module.exports = function(grunt) {
         var name = new Content();
         name.template = typeof createItem === "string" 
             ? createItem 
-            : createItem.name || "";
+            : createItem.filename || "";
         name.data = content.data;
         this.name = name.rendered();
         this.copy = createItem.copy;
@@ -58,10 +58,24 @@ module.exports = function(grunt) {
         };
         this.merge = function(createItem){
             this.data = extend(this.data, createItem.templateData);
-            this.template = typeof createItem.content === "object" 
-                ? JSON.stringify(createItem.content, null, "    ")
-                : createItem.content;
+            this.template = typeof createItem.template === "object" 
+                ? JSON.stringify(createItem.template, null, "    ")
+                : createItem.template;
         };
+    }
+    
+    function FrontMatterExtractor(input){
+        this.frontMatter = null;
+        this.remainder = input;
+
+        if (input && typeof input === "string"){
+            var matches = input.match(/^---$([\s\S]*)^---$/m);
+            if (matches){
+                this.frontMatter = yaml.safeLoad(matches[1]);
+                this.remainder = input.replace(matches[0], "").trim();
+                l(this.frontMatter);
+            }
+        } 
     }
 
     grunt.registerMultiTask("boil", "Boilerplate a new package, page, module, whatever..", function() {
@@ -99,18 +113,12 @@ module.exports = function(grunt) {
         
         if (this.data.create){
             arrayify(this.data.create).forEach(function(createItem){
-                var matches, frontMatter;
-                if (createItem.content && typeof createItem.content === "string"){
-                    matches = createItem.content.match(/^---$([\s\S]*)^---$/m);
-                    if (matches){
-                        frontMatter = yaml.safeLoad(matches[1]);
-                        createItem.content = createItem.content.replace(matches[0], "").trim();
-                        // l(frontMatter);
-                    }
-                }
+                var extractor = new FrontMatterExtractor(createItem.template);
                 var content = new Content(dataProto);
+
+                createItem.template = extractor.remainder;
                 content.merge(createItem);
-                content.data = extend(content.data, frontMatter);
+                content.data = extend(content.data, extractor.frontMatter);
                 var file = new File(createItem, content);
                 file.create();
             });

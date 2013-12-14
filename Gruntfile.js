@@ -40,16 +40,16 @@ module.exports = function(grunt) {
                 },
                 create: [
                     {
-                        name: "tmp/{{args.[0]}}/examples/{{args.[0]}}.html",
-                        content: "<p>docs here</p>"
+                        filename: "tmp/{{args.[0]}}/examples/{{args.[0]}}.html",
+                        template: "<p>docs here</p>"
                     },
                     {
-                        name: "tmp/{{args.[0]}}/examples/logo.png",
+                        filename: "tmp/{{args.[0]}}/examples/logo.png",
                         copy: "test/assets/logo.png"
                     },
                     {
-                        name: "tmp/{{args.[0]}}/bower.json",
-                        content: {
+                        filename: "tmp/{{args.[0]}}/bower.json",
+                        template: {
                             "name": "{{args.[0]}}",
                             "version": "0.0.0",
                             "private": true,
@@ -60,19 +60,19 @@ module.exports = function(grunt) {
                         }
                     },
                     {
-                        name: "tmp/{{args.[0]}}/more.json",
-                        content: [
+                        filename: "tmp/{{args.[0]}}/more.json",
+                        template: [
                             { a: "{{args.[0]}}" },
                             { b: "{{args.[1]}}" }
                         ]
                     },
                     {
-                        name: "tmp/{{args.[0]}}/nls/{{args.[0]}}.js",
-                        content: grunt.file.read("test/assets/module1.js")
+                        filename: "tmp/{{args.[0]}}/nls/{{args.[0]}}.js",
+                        template: grunt.file.read("test/assets/module1.js")
                     },
                     {
-                        name: "tmp/{{args.[0]}}/main.js",
-                        content: grunt.file.read("test/assets/module2.js")
+                        filename: "tmp/{{args.[0]}}/main.js",
+                        template: grunt.file.read("test/assets/module2.js")
                     },
                     "tmp/{{args.[0]}}/{{args.[0]}}.scss"
                 ]
@@ -81,16 +81,16 @@ module.exports = function(grunt) {
             with_args: {
                 create: [
                     {
-                        name: "tmp/{{args.[0]}}/examples/{{args.[0]}}.html",
-                        content: "<p>docs here</p>"
+                        filename: "tmp/{{args.[0]}}/examples/{{args.[0]}}.html",
+                        template: "<p>docs here</p>"
                     },
                     {
-                        name: "tmp/{{args.[0]}}/examples/logo.png",
+                        filename: "tmp/{{args.[0]}}/examples/logo.png",
                         copy: "test/assets/logo.png"
                     },
                     {
-                        name: "tmp/{{args.[0]}}/bower.json",
-                        content: {
+                        filename: "tmp/{{args.[0]}}/bower.json",
+                        template: {
                             "name": "{{args.[0]}}",
                             "version": "0.0.0",
                             "private": true,
@@ -101,12 +101,12 @@ module.exports = function(grunt) {
                         }
                     },
                     {
-                        name: "tmp/{{args.[0]}}/nls/{{args.[0]}}.js",
-                        content: grunt.file.read("test/assets/module1.js")
+                        filename: "tmp/{{args.[0]}}/nls/{{args.[0]}}.js",
+                        template: grunt.file.read("test/assets/module1.js")
                     },
                     {
-                        name: "tmp/{{args.[0]}}/main.js",
-                        content: grunt.file.read("test/assets/module2.js")
+                        filename: "tmp/{{args.[0]}}/main.js",
+                        template: grunt.file.read("test/assets/module2.js")
                     },
                     "tmp/{{args.[0]}}/{{args.[0]}}.scss"
                 ]
@@ -122,8 +122,8 @@ module.exports = function(grunt) {
                 },
                 create: [
                     {
-                        name: "tmp/index.html",
-                        content: grunt.file.read("test/assets/index/index.hbs"),
+                        filename: "tmp/index.html",
+                        template: grunt.file.read("test/assets/index/index.hbs"),
                         templateData: {
                             word: "keele"
                         }
@@ -133,8 +133,9 @@ module.exports = function(grunt) {
 
             yaml: {
                 create: {
-                    name: "tmp/yaml.html",
-                    content: grunt.file.read("test/assets/yaml.hbs")
+                    filename: "tmp/yaml.html",
+                    template: grunt.file.read("test/assets/yaml.hbs"),
+                    
                 }
             },
 
