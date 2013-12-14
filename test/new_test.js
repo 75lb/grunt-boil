@@ -59,15 +59,17 @@ exports.boil = {
     
     index: function(test){
         test.expect(1);
-        
         var actual = grunt.file.read("tmp/index.html"),
             expected = grunt.file.read("test/expected/index.html");
         test.equal(actual, expected);
-        
         test.done();
     },
     
     yaml: function(test){
+        test.expect(1);
+        var actual = grunt.file.read("tmp/yaml.html"),
+            expected = grunt.file.read("test/expected/yaml.html");
+        test.equal(actual, expected);
         test.done();
     }
 };

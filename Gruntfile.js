@@ -39,11 +39,11 @@ module.exports = function(grunt) {
                     }
                 },
                 create: [
-                    { 
+                    {
                         name: "tmp/{{args.[0]}}/examples/{{args.[0]}}.html",
                         content: "<p>docs here</p>"
                     },
-                    { 
+                    {
                         name: "tmp/{{args.[0]}}/examples/logo.png",
                         copy: "test/assets/logo.png"
                     },
@@ -66,25 +66,25 @@ module.exports = function(grunt) {
                             { b: "{{args.[1]}}" }
                         ]
                     },
-                    { 
+                    {
                         name: "tmp/{{args.[0]}}/nls/{{args.[0]}}.js",
                         content: grunt.file.read("test/assets/module1.js")
                     },
-                    { 
+                    {
                         name: "tmp/{{args.[0]}}/main.js",
                         content: grunt.file.read("test/assets/module2.js")
                     },
                     "tmp/{{args.[0]}}/{{args.[0]}}.scss"
                 ]
             },
-            
+
             with_args: {
                 create: [
-                    { 
+                    {
                         name: "tmp/{{args.[0]}}/examples/{{args.[0]}}.html",
                         content: "<p>docs here</p>"
                     },
-                    { 
+                    {
                         name: "tmp/{{args.[0]}}/examples/logo.png",
                         copy: "test/assets/logo.png"
                     },
@@ -100,18 +100,18 @@ module.exports = function(grunt) {
                             }
                         }
                     },
-                    { 
+                    {
                         name: "tmp/{{args.[0]}}/nls/{{args.[0]}}.js",
                         content: grunt.file.read("test/assets/module1.js")
                     },
-                    { 
+                    {
                         name: "tmp/{{args.[0]}}/main.js",
                         content: grunt.file.read("test/assets/module2.js")
                     },
                     "tmp/{{args.[0]}}/{{args.[0]}}.scss"
                 ]
             },
-            
+
             index: {
                 options: {
                     templateData: {
@@ -121,25 +121,28 @@ module.exports = function(grunt) {
                     partials: "test/assets/index/fileCount.hbs"
                 },
                 create: [
-                    { 
+                    {
                         name: "tmp/index.html",
-                        content: grunt.file.read("test/assets/index/index.hbs")
+                        content: grunt.file.read("test/assets/index/index.hbs"),
+                        templateData: {
+                            word: "keele"
+                        }
                     }
                 ]
             },
-            
+
             yaml: {
                 create: {
                     name: "tmp/yaml.html",
                     content: grunt.file.read("test/assets/yaml.hbs")
                 }
             },
-            
+
             taskOptions: {
                 create: "tmp/{{clive}}-{{args.[0]}}.txt"
             }
         },
-        
+
         // Unit tests.
         nodeunit: {
             tests: ["test/*_test.js"]
@@ -153,10 +156,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-nodeunit");
 
     grunt.registerTask("test", [
-        "clean", 
-        "boil:package", 
-        "boil:with_args:clive", 
-        "boil:index", 
+        "clean",
+        "boil:package",
+        "boil:with_args:clive",
+        "boil:index",
+        "boil:yaml",
         "nodeunit"
     ]);
     grunt.registerTask("default", ["jshint", "test"]);

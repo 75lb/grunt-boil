@@ -3,6 +3,7 @@ module.exports = function(grunt) {
 
     var handlebars = require("handlebars"),
         path = require("path"),
+        yaml = require("js-yaml"),
         l = console.log;
 
     function loadModules(helpers, partials){
@@ -98,8 +99,18 @@ module.exports = function(grunt) {
         
         if (this.data.create){
             arrayify(this.data.create).forEach(function(createItem){
+                var matches, frontMatter;
+                if (createItem.content && typeof createItem.content === "string"){
+                    matches = createItem.content.match(/^---$([\s\S]*)^---$/m);
+                    if (matches){
+                        frontMatter = yaml.safeLoad(matches[1]);
+                        createItem.content = createItem.content.replace(matches[0], "").trim();
+                        // l(frontMatter);
+                    }
+                }
                 var content = new Content(dataProto);
                 content.merge(createItem);
+                content.data = extend(content.data, frontMatter);
                 var file = new File(createItem, content);
                 file.create();
             });

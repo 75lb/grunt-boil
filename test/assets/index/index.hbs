@@ -1,11 +1,11 @@
 <html>
 <body>
   {{> fileCount}}
-  <ul>
+  <ul>target level:
   {{~#list someFiles}}
     <li><a href="{{this}}">{{this}}</a></li>
   {{~/list}}
   </ul>
-  {{> fileCount}}
+  <h1>createItem level: {{word}}</h1>
 </body>
 </html>
