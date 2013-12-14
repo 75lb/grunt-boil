@@ -8,7 +8,7 @@ module.exports = function(grunt) {
 
     function loadModules(helpers, partials){
         grunt.file.expand(helpers).forEach(function(helper){
-            require(path.resolve(process.cwd(), helper))(handlebars);
+            require(path.resolve(process.cwd(), helper))(handlebars, grunt, FrontMatterExtractor);
         });
         grunt.file.expand(partials).forEach(function(partial){
             handlebars.registerPartial(path.basename(partial, ".hbs"), grunt.file.read(partial));
@@ -57,6 +57,15 @@ module.exports = function(grunt) {
             }
         };
         this.merge = function(createItem){
+            var data = createItem.templateData;
+            for (var prop in data){
+                if (typeof data[prop] === "string"){
+                    var extraction = new FrontMatterExtractor(data[prop]);
+                    if (extraction.frontMatter){
+                        createItem.templateData[prop] = extraction;
+                    }
+                }
+            }
             this.data = extend(this.data, createItem.templateData);
             this.template = typeof createItem.template === "object" 
                 ? JSON.stringify(createItem.template, null, "    ")
@@ -65,15 +74,15 @@ module.exports = function(grunt) {
     }
     
     function FrontMatterExtractor(input){
+        var matter = /^---$([\s\S]*)^---$/m;
         this.frontMatter = null;
         this.remainder = input;
-
         if (input && typeof input === "string"){
-            var matches = input.match(/^---$([\s\S]*)^---$/m);
+            var matches = input.match(matter);
             if (matches){
                 this.frontMatter = yaml.safeLoad(matches[1]);
                 this.remainder = input.replace(matches[0], "").trim();
-                l(this.frontMatter);
+                // l(this.frontMatter);
             }
         } 
     }
