@@ -128,6 +128,13 @@ module.exports = function(grunt) {
                 ]
             },
             
+            yaml: {
+                create: {
+                    name: "tmp/yaml.html",
+                    content: grunt.file.read("test/assets/yaml.hbs")
+                }
+            },
+            
             taskOptions: {
                 create: "tmp/{{clive}}-{{args.[0]}}.txt"
             }
@@ -145,6 +152,12 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-clean");
     grunt.loadNpmTasks("grunt-contrib-nodeunit");
 
-    grunt.registerTask("test", ["clean", "boil:package", "boil:with_args:clive", "boil:index", "nodeunit"]);
+    grunt.registerTask("test", [
+        "clean", 
+        "boil:package", 
+        "boil:with_args:clive", 
+        "boil:index", 
+        "nodeunit"
+    ]);
     grunt.registerTask("default", ["jshint", "test"]);
 };

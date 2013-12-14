@@ -65,5 +65,9 @@ exports.boil = {
         test.equal(actual, expected);
         
         test.done();
+    },
+    
+    yaml: function(test){
+        test.done();
     }
 };
