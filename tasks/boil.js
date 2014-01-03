@@ -122,7 +122,10 @@ module.exports = function(grunt) {
         
         if (this.data.create){
             arrayify(this.data.create).forEach(function(createItem){
-                createItem.template = createItem.template || grunt.file.read(createItem.templateFile) || "";
+                if (!createItem.template && createItem.templateFile){
+                    createItem.template = grunt.file.read(createItem.templateFile);
+                }
+                
                 var extractor = new FrontMatterExtractor(createItem.template);
                 var content = new Content(dataProto);
 
