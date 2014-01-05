@@ -3,12 +3,12 @@ module.exports = function(grunt) {
 
     var handlebars = require("handlebars"),
         path = require("path"),
-        yaml = require("js-yaml"),
+        FrontMatterExtractor = require("front-matter-extractor"),
         l = console.log;
 
     function loadModules(helpers, partials){
         grunt.file.expand(helpers).forEach(function(helper){
-            require(path.resolve(process.cwd(), helper))(handlebars, grunt, FrontMatterExtractor);
+            require(path.resolve(process.cwd(), helper))(handlebars, grunt);
         });
         grunt.file.expand(partials).forEach(function(partial){
             handlebars.registerPartial(path.basename(partial, ".hbs"), grunt.file.read(partial));
@@ -73,20 +73,6 @@ module.exports = function(grunt) {
         };
     }
     
-    function FrontMatterExtractor(input){
-        var matter = /^---$([\s\S]*)^---$/m;
-        this.frontMatter = null;
-        this.remainder = input;
-        if (input && typeof input === "string"){
-            var matches = input.match(matter);
-            if (matches){
-                this.frontMatter = yaml.safeLoad(matches[1]);
-                this.remainder = input.replace(matches[0], "").trim();
-                // l(this.frontMatter);
-            }
-        } 
-    }
-
     grunt.registerMultiTask("boil", "Boilerplate a new package, page, module, whatever..", function() {
         var options = this.options({ 
                 helpers: [],
