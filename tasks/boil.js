@@ -115,7 +115,7 @@ module.exports = function(grunt) {
                 var extractor = new FrontMatterExtractor(createItem.template);
                 var content = new Content(dataProto);
 
-                createItem.template = extractor.remainder;
+                createItem.template = extractor.content;
                 content.merge(createItem);
                 content.data = extend(content.data, extractor.frontMatter);
                 var file = new File(createItem, content);
