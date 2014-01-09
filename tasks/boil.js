@@ -79,7 +79,6 @@ module.exports = function(grunt) {
                 partials: [],
                 templateData: {}
             });
-        
         /*
         Base content object. Loads normalised task & target level options, adds grunt reference
         and command-line args. 
@@ -96,7 +95,7 @@ module.exports = function(grunt) {
             var exampleConfig = {
                 boil: {
                     something: {
-                        create: [ "file1.hmtl", "file2.js", "etc" ]
+                        create: [ "file1.html", "file2.js", "etc" ]
                     }
                 }
             };
