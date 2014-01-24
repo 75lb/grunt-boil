@@ -75,10 +75,10 @@ module.exports = function(grunt) {
     
     grunt.registerMultiTask("boil", "Boilerplate a new package, page, module, whatever..", function() {
         var options = this.options({ 
-                helpers: [],
-                partials: [],
-                templateData: {}
-            });
+            helpers: [],
+            partials: [],
+            templateData: {}
+        });
         /*
         Base content object. Loads normalised task & target level options, adds grunt reference
         and command-line args. 

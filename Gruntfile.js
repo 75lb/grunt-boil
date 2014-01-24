@@ -1,11 +1,3 @@
-/*
- * grunt-boil
- * https://github.com/75lb/grunt-boil
- *
- * Copyright (c) 2013 Lloyd Brookes
- * Licensed under the MIT license.
- */
-
 "use strict";
 
 module.exports = function(grunt) {
