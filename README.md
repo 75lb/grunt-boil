@@ -1,7 +1,6 @@
-[![NPM version](https://badge.fury.io/js/grunt-boil.png)](http://badge.fury.io/js/grunt-boil)
 [![Build Status](https://travis-ci.org/75lb/grunt-boil.png)](https://travis-ci.org/75lb/grunt-boil)
 [![Dependency Status](https://david-dm.org/75lb/grunt-boil.png)](https://david-dm.org/75lb/grunt-boil)
-![Analytics](https://ga-beacon.appspot.com/UA-27725889-10/grunt-boil/README.md?pixel)
+![Analytics](https://ga-beacon.appspot.com/UA-27725889-19/grunt-boil/README.md?pixel)
 
 # grunt-boil
 
@@ -287,7 +286,4 @@ tmp/components/Widget/examples
 tmp/components/Widget/examples/Widget.html
 tmp/components/Widget/main.js
 ```
-
-[![NPM](https://nodei.co/npm-dl/grunt-boil.png?months=1)](https://nodei.co/npm/grunt-boil/)
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/75lb/grunt-boil/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+[![NPM](https://nodei.co/npm-dl/grunt-boil.png?months=3)](https://nodei.co/npm/grunt-boil/)
