@@ -1,3 +1,4 @@
+[![NPM version](https://badge.fury.io/js/grunt-boil.png)](http://badge.fury.io/js/grunt-boil)
 [![Build Status](https://travis-ci.org/75lb/grunt-boil.png)](https://travis-ci.org/75lb/grunt-boil)
 [![Dependency Status](https://david-dm.org/75lb/grunt-boil.png)](https://david-dm.org/75lb/grunt-boil)
 ![Analytics](https://ga-beacon.appspot.com/UA-27725889-19/grunt-boil/README.md?pixel)

@@ -49,6 +49,7 @@ module.exports = function(grunt) {
         this.template = "";
         this.data = Object.create(dataProto || null);
         this.rendered = function(){
+            l(this.data);
             if (this.template){
                 var compiled = handlebars.compile(this.template);
                 return compiled(this.data);

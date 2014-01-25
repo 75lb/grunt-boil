@@ -21,7 +21,11 @@ module.exports = function(grunt) {
             options: {
                 templateData: {
                     clive: "hater",
-                    args: [ "nigeria" ]
+                    args: [ "nigeria" ],
+                    one: "task",
+                    two: "task",
+                    three: "task",
+                    four: "task"
                 }
             },
             package: {
@@ -133,6 +137,19 @@ module.exports = function(grunt) {
 
             taskOptions: {
                 create: "tmp/{{clive}}-{{args.[0]}}.txt"
+            },
+            
+            data: {
+                options: {
+                    two: "target"
+                },
+                create: {
+                    filename: "tmp/data.txt",
+                    templateFile: "test/assets/data.hbs",
+                    templateData: {
+                        three: "create"
+                    }
+                }
             }
         },
 
