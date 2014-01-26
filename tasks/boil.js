@@ -4,11 +4,11 @@ function arrayify(input){
     return Array.isArray(input) ? input : [ input ];
 }
 
-function extend(src, dest){
-    for (var prop in dest){
-        src[prop] = dest[prop];
+function extend(obj, srcObj){
+    for (var prop in srcObj){
+        obj[prop] = srcObj[prop];
     }
-    return src;
+    return obj;
 }
 
 
@@ -127,19 +127,33 @@ module.exports = function(grunt) {
         }
     });
     
+    function render(template, data){
+        return handlebars.compile(template)(data);
+    }
+
     grunt.registerMultiTask("boil", "blah", function(){
-        // l(this.files);
+        var self = this,
+            options = this.options(),
+            mappingData = this.data.data || {},
+            data = extend(options.data, mappingData);
+
+        data.args = this.args;
+        
         this.files.forEach(function(file){
             var content = "";
             if (file.copy){
-                l (file.copy, file.dest)
-                grunt.file.copy(file.copy, file.dest, { encoding: null });
+                grunt.file.copy(
+                    render(file.copy, data), 
+                    render(file.dest, data), 
+                    { encoding: null }
+                );
             } else {
                 if (file.src){
-                    content = grunt.file.read(file.src[0]);
-                    // content = file.src.reduce();
+                    var extracted = new FrontMatterExtractor(grunt.file.read(file.src[0]));
+                    content = extracted.content;
+                    data = extend(data, extracted.frontMatter);
                 }
-                grunt.file.write(file.dest, content);
+                grunt.file.write(render(file.dest, data), render(content, data));
             }
         });
     });

@@ -28,86 +28,6 @@ module.exports = function(grunt) {
             //         four: "task"
             //     }
             // },
-            // package: {
-            //     options: {
-            //         templateData: {
-            //             args: [ "widget", "something"]
-            //         }
-            //     },
-            //     create: [
-            //         {
-            //             filename: "tmp/{{args.[0]}}/examples/{{args.[0]}}.html",
-            //             template: "<p>docs here</p>"
-            //         },
-            //         {
-            //             filename: "tmp/{{args.[0]}}/examples/logo.png",
-            //             copy: "test/assets/logo.png"
-            //         },
-            //         {
-            //             filename: "tmp/{{args.[0]}}/bower.json",
-            //             template: {
-            //                 "name": "{{args.[0]}}",
-            //                 "version": "0.0.0",
-            //                 "private": true,
-            //                 "dependencies": {
-            //                     "some": "1.8.1",
-            //                     "shite": "1.8.1"
-            //                 }
-            //             }
-            //         },
-            //         {
-            //             filename: "tmp/{{args.[0]}}/more.json",
-            //             template: [
-            //                 { a: "{{args.[0]}}" },
-            //                 { b: "{{args.[1]}}" }
-            //             ]
-            //         },
-            //         {
-            //             filename: "tmp/{{args.[0]}}/nls/{{args.[0]}}.js",
-            //             template: grunt.file.read("test/assets/module1.js")
-            //         },
-            //         {
-            //             filename: "tmp/{{args.[0]}}/main.js",
-            //             template: grunt.file.read("test/assets/module2.js")
-            //         },
-            //         "tmp/{{args.[0]}}/{{args.[0]}}.scss"
-            //     ]
-            // },
-            // 
-            // with_args: {
-            //     create: [
-            //         {
-            //             filename: "tmp/{{args.[0]}}/examples/{{args.[0]}}.html",
-            //             template: "<p>docs here</p>"
-            //         },
-            //         {
-            //             filename: "tmp/{{args.[0]}}/examples/logo.png",
-            //             copy: "test/assets/logo.png"
-            //         },
-            //         {
-            //             filename: "tmp/{{args.[0]}}/bower.json",
-            //             template: {
-            //                 "name": "{{args.[0]}}",
-            //                 "version": "0.0.0",
-            //                 "private": true,
-            //                 "dependencies": {
-            //                     "dojo": "1.8.1",
-            //                     "dijit": "1.8.1"
-            //                 }
-            //             }
-            //         },
-            //         {
-            //             filename: "tmp/{{args.[0]}}/nls/{{args.[0]}}.js",
-            //             template: grunt.file.read("test/assets/module1.js")
-            //         },
-            //         {
-            //             filename: "tmp/{{args.[0]}}/main.js",
-            //             template: grunt.file.read("test/assets/module2.js")
-            //         },
-            //         "tmp/{{args.[0]}}/{{args.[0]}}.scss"
-            //     ]
-            // },
-            // 
             // index: {
             //     options: {
             //         templateData: {
@@ -156,7 +76,47 @@ module.exports = function(grunt) {
                     { src: "test/src/simpleFile.txt", dest: "tmp/all3/simpleFile.txt" },
                     { copy: "test/src/logo.png", dest: "tmp/all3/logo.png" }
                 ]
-            }
+            },
+            // withArgs: {
+            //     dest: "tmp/{{args.[0]}}/{{args.[1]}}.txt"
+            // },
+            // withArgsCopy: {
+            //     copy: "test/src/{{args.[0]}}.png",
+            //     dest: "tmp/{{args.[1]}}.png"
+            // },
+            optionsInMapping: {
+                src: "test/src/optionsIn.hbs",
+                dest: "tmp/optionsInMapping.txt",
+                data: {
+                    word: "mapping",
+                    phrase: "mapping"
+                }
+            },
+            optionsInTarget: {
+                options: {
+                    data: {
+                        word: "target",
+                        phrase: "target"
+                    }
+                },
+                src: "test/src/optionsIn.hbs",
+                dest: "tmp/optionsInTarget.txt"
+            },
+            options: {
+                data: {
+                    word: "task",
+                    phrase: "task"
+                }
+            },
+            optionsInTask: {
+                src: "test/src/optionsIn.hbs",
+                dest: "tmp/optionsInTask.txt"
+            },
+            optionsInSrc: {
+                src: "test/src/optionsInSrc.hbs",
+                dest: "tmp/optionsInSrc.txt"
+            },
+            multipleSrc: {}
         },
 
         // Unit tests.
