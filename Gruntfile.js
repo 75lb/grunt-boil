@@ -140,15 +140,22 @@ module.exports = function(grunt) {
             // },
             
             emptyFile: {
-                dest: "tmp/emptyFile.txt",
+                dest: "tmp/emptyFile.txt"
             },
             simpleFile: {
                 src: "test/src/simpleFile.txt",
                 dest: "tmp/simpleFile.txt"
             },
             simpleFileBinary: {
-                src: "test/src/logo.png",
+                copy: "test/src/logo.png",
                 dest: "tmp/logo.png"
+            },
+            allThree: {
+                files: [
+                    { dest: "tmp/all3/emptyFile.txt" },
+                    { src: "test/src/simpleFile.txt", dest: "tmp/all3/simpleFile.txt" },
+                    { copy: "test/src/logo.png", dest: "tmp/all3/logo.png" }
+                ]
             }
         },
 

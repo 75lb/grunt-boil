@@ -131,12 +131,16 @@ module.exports = function(grunt) {
         // l(this.files);
         this.files.forEach(function(file){
             var content = "";
-            if (file.src){
-                content = grunt.file.read(file.src[0]);
-                // content = file.src.reduce();
+            if (file.copy){
+                l (file.copy, file.dest)
+                grunt.file.copy(file.copy, file.dest, { encoding: null });
+            } else {
+                if (file.src){
+                    content = grunt.file.read(file.src[0]);
+                    // content = file.src.reduce();
+                }
+                grunt.file.write(file.dest, content);
             }
-            // l("content", content);
-            grunt.file.write(file.dest, content);
         });
     });
 };
