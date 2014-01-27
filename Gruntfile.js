@@ -45,8 +45,10 @@ module.exports = function(grunt) {
             // },
             options: {
                 data: {
-                    word: "task",
-                    phrase: "task"
+                    one: "task",
+                    two: "task",
+                    three: "task",
+                    four: "task"
                 }
             },
             optionsInTask: {
@@ -56,8 +58,9 @@ module.exports = function(grunt) {
             optionsInTarget: {
                 options: {
                     data: {
-                        word: "target",
-                        phrase: "target"
+                        one: "target",
+                        two: "target",
+                        three: "target"
                     }
                 },
                 src: "test/src/optionsIn.hbs",
@@ -66,23 +69,54 @@ module.exports = function(grunt) {
             optionsInMapping: {
                 options: {
                     data: {
-                        word: "target",
-                        phrase: "target"
+                        one: "target",
+                        two: "target",
+                        three: "target",
+                        four: "target"
                     }
                 },
                 files: [{
                     src: "test/src/optionsIn.hbs",
                     dest: "tmp/optionsInMapping.txt",
                     data: {
-                        word: "mapping",
-                        phrase: "mapping",
-                        clive: "hater"
+                        one: "mapping",
+                        two: "mapping",
+                        three: "mapping"
                     }
                 }]
             },
             optionsInSrc: {
                 src: "test/src/optionsInSrc.hbs",
-                dest: "tmp/optionsInSrc.txt"
+                dest: "tmp/optionsInSrc.txt",
+                data: {
+                    one: "mapping",
+                    two: "mapping",
+                    three: "mapping"
+                }
+            },
+            optionsInSrc2: {
+                files: [{
+                    src: "test/src/optionsInSrc.hbs",
+                    dest: "tmp/optionsInSrc2.txt",
+                    data: {
+                        one: "mapping",
+                        two: "mapping",
+                        three: "mapping"
+                    }
+                }]
+            },
+            optionsInSrc3: {
+                options: {
+                    data: {
+                        one: "mapping",
+                        two: "mapping",
+                        three: "mapping"
+                    }
+                },
+                files: [{
+                    src: "test/src/optionsInSrc.hbs",
+                    dest: "tmp/optionsInSrc3.txt"
+                }]
             },
             helper: {
                 options: {
@@ -102,6 +136,7 @@ module.exports = function(grunt) {
                 src: "test/src/optionsOrder.hbs",
                 dest: "tmp/optionsOrder.txt"
             },
+            
             multipleSrc: {},
             
         },

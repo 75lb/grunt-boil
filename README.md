@@ -5,7 +5,7 @@
 
 # grunt-boil
 
-> Boilerplate a new package, page, stylesheet, module, app, whatever..
+> Boilerplate a new package, page, stylesheet, module, app, whatever.. A simple, lightweight alternative to Jekyll and Assemble. 
 
 ## Getting Started
 This plugin requires Grunt `~0.4.1`
@@ -24,19 +24,23 @@ grunt.loadNpmTasks('grunt-boil');
 
 ## The "boil" task
 
-Use Boil to boilerplate new files (including content) and folder structures in your project. Common tasks you might run include: 
+Use Boil to boilerplate new files and folder structures in your project. The kind of commands you might run include: 
 
-Boilerplate a new "reddit" plug-in in the "news" package
+Create a new package structure called "Components"
 
-    $ grunt boil:plugin:news:reddit
-
-Create a new package structure called "global-styles"
-
-    $ grunt boil:package:global-styles
+    $ grunt boil:package:Components
     
-Generate an index page 
+Boilerplate a new "Person" module in the "Components" package
+
+    $ grunt boil:module:Person:Components
+
+Generate the index page
 
     $ grunt boil:index
+    
+..or the whole site
+
+    $ grunt boil:blog
 
 ### Overview
 In your project's Gruntfile, add a section named `boil` to the data object passed into `grunt.initConfig()`.
@@ -47,15 +51,23 @@ grunt.initConfig({
         options: {
             // Handblebars helpers to load
             helpers: "helpers/*.js",
-            // Data available to each template in the `create` list
-            templateData: { user: "Lloyd", task: "grunt-boil" }
+            // Default data. Is overridden by target level options and extended by mapping and src-level options.
+            data: { user: "Lloyd", task: "grunt-boil" }
         },
         your_target: {
-            // The file or files to create
-            create: {
-                name: "file-to-be-created.html",
-                content: "<p>{{user}} is running {{task}}!</p>"
-            }
+            // standard grunt file array defining what to create
+            files: [
+                {
+                    src: "index.hbs"
+                    dest: "index.html",
+                    data: {
+                        title: "Index page",
+                        news: [
+                            { title: "An event happened", "content": "etc.." }
+                        ]
+                    }
+                }
+            ]
         }
     }
 })
@@ -96,17 +108,17 @@ The filename of the partial (minus the `.hbs` extension) becomes the registered 
 </section>
 ```
     
-#### templateData
+#### data
 Type: Object  
 Default: {}
 
-The data available to all templates.
+The data available to all `src` templates.
 
-Two properties are added to `templateData` automatically - `grunt` (giving access to grunt config, functionality etc) and `args`, containing the arguments passed to the task.
+Two properties are added to `data` automatically - `grunt` (giving access to grunt config, functionality etc) and `args`, containing the [arguments](http://gruntjs.com/api/inside-tasks#this.args) passed to the task.
 
-You can set an `args` array in `templateData` to be used as default values in the case no command-line args are passed: 
+You can set an `args` array in `data` to be used as default values in the case no args are specified: 
 
-    templateData: {
+    data: {
         args: [ "packsges "]
     }
 
@@ -114,16 +126,12 @@ You can set an `args` array in `templateData` to be used as default values in th
 A set of progressively more complex examples.
 
 #### Boil a single, empty file
-This config:
+This target:
 
 ```js
-grunt.initConfig({
-  boil: {
-    empty: {  
-        create: "empty.txt"
-    }
-  }
-})
+empty: {  
+    dest: "empty.txt"
+}
 ```
 
 with this command: 
@@ -139,19 +147,13 @@ empty.txt
 ```
 
 #### Boil a single file with content
-This config:
+This target:
 
 ```js
-grunt.initConfig({
-  boil: {
-    meanings: {  
-        create: {
-            name: "meanings.txt",
-            content: "words, adjectives and pronouns"
-        }
-    }
-  }
-})
+meanings: {  
+    src: "default-meanings-file.txt",
+    dest: "meanings.txt"
+}
 ```
 
 with this command: 
@@ -160,28 +162,16 @@ with this command:
 $ grunt boil:meanings
 ```
 
-Produces this file:
+Produces the file `meanings.txt` with the content specified in `default-meanings-file.txt`.
 
-    meanings.txt
-
-With this content: 
-
-    words, adjectives and pronouns
-
-#### Boil a file with content copied from another file
-This config:
+#### Copy a file without any template resolution
+This target:
 
 ```js
-grunt.initConfig({
-  boil: {
-    logo: {  
-        create: {
-            name: "logo.png",
-            copy: "assets/logo-main.png"
-        }
-    }
-  }
-})
+logo: {  
+    copy: "assets/standard-logo.png"
+    dest: "logo.png",
+}
 ```
 
 with this command: 
@@ -190,46 +180,10 @@ with this command:
 $ grunt boil:logo
 ```
 
-Produces this file:
-
-    meanings.txt
-
-With this content: 
-
-    words, adjectives and pronouns
-
-#### Boil an HTML doc
-This config:
-
-    ```js
-    grunt.initConfig({
-      boil: {
-        meanings: {  
-            create: {
-                name: "meanings.txt",
-                content: "words, adjectives and pronouns"
-            }
-        }
-      }
-    })
-    ```
-
-    with this command: 
-
-    ```sh
-    $ grunt boil:meanings
-    ```
-
-    Produces this file:
-
-        meanings.txt
-
-    With this content: 
-
-        words, adjectives and pronouns
+Simply duplicates the file specified by `copy`. Useful for binary files. 
 
 #### Create several empty files in sub-folders
-This config:
+This target:
 
 ```js
 grunt.initConfig({

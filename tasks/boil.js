@@ -37,6 +37,7 @@ module.exports = function(grunt) {
             data = extend(options.data, mappingData);
 
         data.args = this.args;
+        data.grunt = grunt;
         loadModules(options.helpers, options.partials);
         
         this.files.forEach(function(file){
