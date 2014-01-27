@@ -43,13 +43,15 @@ module.exports = function(grunt) {
             //     copy: "test/src/{{args.[0]}}.png",
             //     dest: "tmp/{{args.[1]}}.png"
             // },
-            optionsInMapping: {
-                src: "test/src/optionsIn.hbs",
-                dest: "tmp/optionsInMapping.txt",
+            options: {
                 data: {
-                    word: "mapping",
-                    phrase: "mapping"
+                    word: "task",
+                    phrase: "task"
                 }
+            },
+            optionsInTask: {
+                src: "test/src/optionsIn.hbs",
+                dest: "tmp/optionsInTask.txt"
             },
             optionsInTarget: {
                 options: {
@@ -61,15 +63,22 @@ module.exports = function(grunt) {
                 src: "test/src/optionsIn.hbs",
                 dest: "tmp/optionsInTarget.txt"
             },
-            options: {
-                data: {
-                    word: "task",
-                    phrase: "task"
-                }
-            },
-            optionsInTask: {
-                src: "test/src/optionsIn.hbs",
-                dest: "tmp/optionsInTask.txt"
+            optionsInMapping: {
+                options: {
+                    data: {
+                        word: "target",
+                        phrase: "target"
+                    }
+                },
+                files: [{
+                    src: "test/src/optionsIn.hbs",
+                    dest: "tmp/optionsInMapping.txt",
+                    data: {
+                        word: "mapping",
+                        phrase: "mapping",
+                        clive: "hater"
+                    }
+                }]
             },
             optionsInSrc: {
                 src: "test/src/optionsInSrc.hbs",
@@ -88,6 +97,10 @@ module.exports = function(grunt) {
                 },
                 src: "test/src/partial.hbs",
                 dest: "tmp/partial.txt"
+            },
+            optionsOrder: {
+                src: "test/src/optionsOrder.hbs",
+                dest: "tmp/optionsOrder.txt"
             },
             multipleSrc: {},
             
