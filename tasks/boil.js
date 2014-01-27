@@ -20,12 +20,16 @@ module.exports = function(grunt) {
         l = console.log;
 
     function loadModules(helpers, partials){
-        grunt.file.expand(helpers).forEach(function(helper){
-            require(path.resolve(process.cwd(), helper))(handlebars, grunt);
-        });
-        grunt.file.expand(partials).forEach(function(partial){
-            handlebars.registerPartial(path.basename(partial, ".hbs"), grunt.file.read(partial));
-        });
+        if (helpers){
+            grunt.file.expand(helpers).forEach(function(helper){
+                require(path.resolve(process.cwd(), helper))(handlebars, grunt);
+            });
+        }
+        if (partials){
+            grunt.file.expand(partials).forEach(function(partial){
+                handlebars.registerPartial(path.basename(partial, ".hbs"), grunt.file.read(partial));
+            });
+        }
     }
 
     function File(createItem, content){
@@ -138,6 +142,7 @@ module.exports = function(grunt) {
             data = extend(options.data, mappingData);
 
         data.args = this.args;
+        loadModules(options.helpers, options.partials);
         
         this.files.forEach(function(file){
             var content = "";

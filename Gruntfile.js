@@ -18,47 +18,6 @@ module.exports = function(grunt) {
         },
 
         boil: {
-            // options: {
-            //     templateData: {
-            //         clive: "hater",
-            //         args: [ "nigeria" ],
-            //         one: "task",
-            //         two: "task",
-            //         three: "task",
-            //         four: "task"
-            //     }
-            // },
-            // index: {
-            //     options: {
-            //         templateData: {
-            //             someFiles: grunt.file.expand("*.{js,html}")
-            //         },
-            //         helpers: "test/assets/index/list.js",
-            //         partials: "test/assets/index/fileCount.hbs"
-            //     },
-            //     create: [
-            //         {
-            //             filename: "tmp/index.html",
-            //             template: grunt.file.read("test/assets/index/index.hbs"),
-            //             templateData: {
-            //                 word: "keele"
-            //             }
-            //         }
-            //     ]
-            // },
-            // 
-            // yaml: {
-            //     create: {
-            //         filename: "tmp/yaml.html",
-            //         template: grunt.file.read("test/assets/yaml.hbs"),
-            //         
-            //     }
-            // },
-            // 
-            // taskOptions: {
-            //     create: "tmp/{{clive}}-{{args.[0]}}.txt"
-            // },
-            
             emptyFile: {
                 dest: "tmp/emptyFile.txt"
             },
@@ -116,7 +75,22 @@ module.exports = function(grunt) {
                 src: "test/src/optionsInSrc.hbs",
                 dest: "tmp/optionsInSrc.txt"
             },
-            multipleSrc: {}
+            helper: {
+                options: {
+                    helpers: "test/src/helper.js"
+                },
+                src: "test/src/helper.hbs",
+                dest: "tmp/helper.txt"
+            },
+            partial: {
+                options: {
+                    partials: "test/src/apartial.hbs"
+                },
+                src: "test/src/partial.hbs",
+                dest: "tmp/partial.txt"
+            },
+            multipleSrc: {},
+            
         },
 
         // Unit tests.
