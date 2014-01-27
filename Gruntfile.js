@@ -120,10 +120,6 @@ module.exports = function(grunt) {
 
     grunt.registerTask("test", [
         "clean",
-        "boil:package",
-        "boil:with_args:clive",
-        "boil:index",
-        "boil:yaml",
         "nodeunit"
     ]);
     grunt.registerTask("default", ["jshint", "test"]);
