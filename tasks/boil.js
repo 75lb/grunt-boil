@@ -30,7 +30,9 @@ module.exports = function(grunt) {
     }
 
     grunt.registerMultiTask("boil", "Boilerplate files, packages, apps, websites etc.", function(){
-        var options = this.options(),
+        var options = this.options({
+                data: {}
+            }),
             mappingData = this.data.data || {},
             data = extend(options.data, mappingData);
 
@@ -39,8 +41,8 @@ module.exports = function(grunt) {
         
         this.files.forEach(function(file){
             var content = "",
-                mappingData = file.data || {},
-                data = extend(data, mappingData);
+                mappingData = file.data || {};
+            data = extend(data, mappingData);
             
             if (file.copy){
                 grunt.file.copy(
