@@ -3,6 +3,8 @@
 [![Dependency Status](https://david-dm.org/75lb/grunt-boil.png)](https://david-dm.org/75lb/grunt-boil)
 ![Analytics](https://ga-beacon.appspot.com/UA-27725889-19/grunt-boil/README.md?pixel)
 
+** this project is a WIP **
+
 # grunt-boil
 
 > Boilerplate a new package, page, stylesheet, module, app, whatever.. A simple, lightweight alternative to Jekyll and Assemble. 
