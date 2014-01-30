@@ -44,7 +44,7 @@ module.exports = function(grunt) {
             var content = "",
                 mappingData = file.data || {};
             data = extend(data, mappingData);
-            
+
             if (file.copy){
                 grunt.file.copy(
                     render(file.copy, data), 
@@ -52,12 +52,15 @@ module.exports = function(grunt) {
                     { encoding: null }
                 );
             } else {
-                if (file.src){
+                if (file.src.length){
                     var extracted = new FrontMatterExtractor(grunt.file.read(file.src[0]));
                     content = extracted.content;
                     data = extend(data, extracted.frontMatter);
                 }
-                grunt.file.write(render(file.dest, data), render(content, data));
+                var outputFile = render(file.dest, data),
+                    outputContent = render(content, data);
+                grunt.file.write(outputFile, outputContent);
+                grunt.log.ok("Created: " + outputFile);
             }
         });
     });
