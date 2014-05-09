@@ -1,7 +1,7 @@
 "use strict";
 var handlebars = require("handlebars"),
     path = require("path"),
-    FrontMatterExtractor = require("front-matter-extractor"),
+    fme = require("front-matter-extractor"),
     l = console.log;
 
 function render(template, data){
@@ -52,10 +52,10 @@ module.exports = function(grunt) {
                     { encoding: null }
                 );
             } else {
-                if (file.src.length){
-                    var extracted = new FrontMatterExtractor(grunt.file.read(file.src[0]));
-                    content = extracted.content;
-                    data = extend(data, extracted.frontMatter);
+                if (file.src && file.src.length){
+                    var extracted = fme.extract(grunt.file.read(file.src[0]));
+                    content = extracted._remainder;
+                    data = extend(data, extracted);
                 }
                 var outputFile = render(file.dest, data),
                     outputContent = render(content, data);
