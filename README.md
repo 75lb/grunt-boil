@@ -1,6 +1,7 @@
-[![NPM version](https://badge.fury.io/js/grunt-boil.png)](http://badge.fury.io/js/grunt-boil)
-[![Build Status](https://travis-ci.org/75lb/grunt-boil.png)](https://travis-ci.org/75lb/grunt-boil)
-[![Dependency Status](https://david-dm.org/75lb/grunt-boil.png)](https://david-dm.org/75lb/grunt-boil)
+[![view on npm](http://img.shields.io/npm/v/grunt-boil.svg)](https://www.npmjs.org/package/grunt-boil)
+[![Build Status](https://travis-ci.org/75lb/grunt-boil.svg)](https://travis-ci.org/75lb/grunt-boil)
+![npm module downloads per month](http://img.shields.io/npm/dm/grunt-boil.svg)
+[![Dependency Status](https://david-dm.org/75lb/grunt-boil.svg)](https://david-dm.org/75lb/grunt-boil)
 ![Analytics](https://ga-beacon.appspot.com/UA-27725889-19/grunt-boil/README.md?pixel)
 
 ** this project is a WIP **
@@ -243,4 +244,3 @@ tmp/components/Widget/examples
 tmp/components/Widget/examples/Widget.html
 tmp/components/Widget/main.js
 ```
-[![NPM](https://nodei.co/npm-dl/grunt-boil.png?months=3)](https://nodei.co/npm/grunt-boil/)
